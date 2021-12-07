@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AddBluRayViewModel
+@{
+    ViewData["Title"] = "Add BluRay Page";
+}
+
+<div>
+    <form method="post" asp-action="Index" asp-route-id="id">
+
+        <label for="Titre">Titre :</label>
+        <input type="text" name="Titre" id="Titre" /> <br>
+
+        <label for="scenariste">Scenariste :</label>
+        <input type="text" name="scenariste" id="scenariste" /><br>
+
+        <label for="realisteur">Realisateur :</label>
+        <input type="text" name="realisteur" id="realisteur" /><br>
+
+        <label for="acteurs">Acteurs :</label>
+        <input type="text" name="acteurs" id="acteurs" /><br>
+
+
+
+        <label for="duree">Duree :</label>
+        <input type="time" name="duree" id="duree" /><br>
+
+        <label for="dateSortie">Date de sortie :</label>
+        <input type="date" name="dateSortie" id="dateSortie" /><br>
+
+        <label for="langues">Langues :</label>
+        <input type="text" name="langues" id="langues" /><br>
+
+
+
+        <label for="ssTitre">Sous titres :</label>
+        <input type="text" name="ssTitre" id="ssTitre" /><br>
+
+
+
+        <label for="verison">Version :</label>
+        <input type="text" name="version" id="version" /><br>
+        
+        <input type="submit" value="Sauvegarder" />
+    </form>
+</div>

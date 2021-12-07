@@ -27,10 +27,11 @@ namespace MyLittleBluRayThequeProject.Controllers
         public IActionResult Index(long? id)
         {
             IndexViewModel model = new IndexViewModel();
-            model.BluRays = brRepository.GetListeBluRay();
+            var br = brRepository.GetListeBluRay();
+            model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
             if (id != null)
             {
-                model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
+                model.SelectedBluRay = br.FirstOrDefault(x => x.Id == id);
             }
             return View(model);
         }

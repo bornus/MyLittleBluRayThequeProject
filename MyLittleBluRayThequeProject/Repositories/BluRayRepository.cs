@@ -15,7 +15,7 @@ namespace MyLittleBluRayThequeProject.Repositories
         public List<BluRay> GetListeBluRay()
         {
             return new List<BluRay>
-            { 
+            {
                 new BluRay
                 {
                     Id = 0,
@@ -33,7 +33,16 @@ namespace MyLittleBluRayThequeProject.Repositories
                             DateNaissance = DateTime.Now,
                             Professions = new List<string>{"Acteur"}
                         }
-                    }
+                    },
+                    Langues = new List<string>
+                    {
+                        "francais", "anglais"
+                    },
+                    SsTitres = new List<string>
+                    {
+                        "francais", "anglais"
+                    },
+                    Duree = new TimeSpan(2, 15, 45),
                 },
                 new BluRay
                 {
@@ -52,7 +61,16 @@ namespace MyLittleBluRayThequeProject.Repositories
                             DateNaissance = DateTime.Now,
                             Professions = new List<string>{"Acteur"}
                         }
-                    }
+                    },
+                    Langues = new List<string>
+                    {
+                        "francais", "anglais"
+                    },
+                    SsTitres = new List<string>
+                    {
+                        "francais", "anglais"
+                    },
+                    Duree = new TimeSpan(1, 25, 00),
                 }
             };
         }

@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IndexViewModel
+@{
+    ViewData["Title"] = "Selected BluRay Page";
+
+}
+<div class="text-center">
+    <div>
+    titre : @Model.SelectedBluRay.Titre
+    </div>
+    <div>
+        Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs)
+        {
+            <div>nom :  @act.Nom</div>
+            <div>prenom :  @act.Prenom</div>
+        }
+    </div>
+    <div>
+    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
+    </div>
+
+</div> 

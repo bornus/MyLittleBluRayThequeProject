@@ -6,8 +6,27 @@
 @foreach (var br in Model?.BluRays)
 {
     <div>
-    <a asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id"> Titre : @br.Titre</a>
+    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@br.Id"> Titre : @br.Titre</a>
     </div>
+}
+@if(Model.SelectedBluRay != null)
+{
+<div class="text-center">
+    <div>
+    titre : @Model.SelectedBluRay.Titre
+    </div>
+    <div>
+        Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs)
+        {
+            <div>nom :  @act.Nom</div>
+            <div>prenom :  @act.Prenom</div>
+        }
+    </div>
+    <div>
+    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
+    </div>
+
+</div> 
 }
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>

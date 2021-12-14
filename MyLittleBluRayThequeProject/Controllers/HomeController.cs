@@ -31,7 +31,7 @@ namespace MyLittleBluRayThequeProject.Controllers
             model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
             if (id != null)
             {
-                model.SelectedBluRay = br.FirstOrDefault(x => x.Id == id);
+                model.SelectedBluRay = brRepository.GetBluRay(id.Value);
             }
             return View(model);
         }

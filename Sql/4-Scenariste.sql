@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS "BluRayTheque"."Scenariste"
 (
-    "Id" integer NOT NULL DEFAULT nextval('"BluRayTheque"."Scenariste_Id_seq"'::regclass),
+    "Id" SERIAL NOT NULL,
     "IdBluRay" integer NOT NULL,
     "IdScenariste" integer NOT NULL,
     CONSTRAINT "Scenariste_pkey" PRIMARY KEY ("IdBluRay"),

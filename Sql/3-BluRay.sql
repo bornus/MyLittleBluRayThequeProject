@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS "BluRayTheque"."BluRay"
 (
-    "Id" integer NOT NULL DEFAULT nextval('"BluRayTheque"."BluRay_Id_seq"'::regclass),
+    "Id" SERIAL NOT NULL,
     "Titre" character varying(100) COLLATE pg_catalog."default" NOT NULL,
     "Duree" integer,
     "DateSortie" date,

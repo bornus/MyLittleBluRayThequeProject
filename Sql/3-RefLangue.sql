@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS "BluRayTheque"."RefLangue"
 (
-    "Id" integer NOT NULL DEFAULT nextval('"BluRayTheque"."RefLangue_Id_seq"'::regclass),
+    "Id" SERIAL NOT NULL,
     "Langue" character varying(100) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT "RefLangue_pkey" PRIMARY KEY ("Id")
 )

@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS "BluRayTheque"."Personne"
 (
-    "Id" integer NOT NULL DEFAULT nextval('"BluRayTheque"."Personne_Id_seq"'::regclass),
+    "Id" SERIAL NOT NULL,
     "Nom" character varying(100) COLLATE pg_catalog."default" NOT NULL,
     "Prenom" character varying(100) COLLATE pg_catalog."default" NOT NULL,
     "DateNaissance" date,

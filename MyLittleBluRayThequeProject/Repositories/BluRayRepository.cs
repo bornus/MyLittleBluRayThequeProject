@@ -133,7 +133,7 @@ namespace MyLittleBluRayThequeProject.Repositories
         }
 
 
-        public List<Personne> GetActeurs()
+        public List<Personne> GetListActeurs()
         {
             NpgsqlConnection conn = null;
             List<Personne> result = new List<Personne>();

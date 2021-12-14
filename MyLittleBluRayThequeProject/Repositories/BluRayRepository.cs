@@ -77,31 +77,49 @@ namespace MyLittleBluRayThequeProject.Repositories
         }
 
 
-        public List<BluRay> GetListeBluRaySQL()
+        public IEnumerable<BluRay> GetListeBluRaySQL()
         {
             NpgsqlConnection conn = null;
             List<BluRay> result = new List<BluRay>();
             try
             {
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=psw;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" FROM \"BluRayTheque\".\"BluRay\"", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"DateSortie\", \"Version\",\"Emprunt\",\"Proprietaire\", \"Disponible\" FROM \"BluRayTheque\".\"BluRay\"", conn);
 
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
-
                 // Output rows
+                
                 while (dr.Read())
-                    result.Add(new BluRay
-                    {
-                        Id = long.Parse(dr[0].ToString()),
-                        Titre = dr[1].ToString(),
-                        Duree = TimeSpan.FromSeconds(long.Parse(dr[2].ToString())),
-                        Version = dr[3].ToString()
-                    });
+                {
+                    Console.WriteLine("Id : "+dr[0].ToString()+ "Titre : " + dr[1].ToString() + "duree : " + dr[2].ToString() + "date : " + dr[3].ToString() + "Version : " + dr[4].ToString() + "Un bool : " + dr[5].ToString());
+                    if (dr!= null && dr[2].ToString()!= null) {
+                        result.Add(new BluRay
+                        {
+                            Id = long.Parse(dr[0].ToString()),
+                            Titre = dr[1].ToString(),
+                            Duree = dr[2].ToString().Equals("") ? new TimeSpan() : TimeSpan.FromSeconds(long.Parse(dr[2].ToString())),
+                            DateSortie = dr[3].ToString().Equals("") ? new DateTime() : DateTime.Parse(dr[3].ToString()),
+                            Version = dr[4].ToString(),
+                            Emprunt = dr[5].ToString().Equals("")? false : bool.Parse(dr[5].ToString()),
+                            Proprietaire = dr[6].ToString().Equals("") ? 0 : int.Parse(dr[6].ToString()),
+                            Disponible = dr[7].ToString().Equals("") ? false : bool.Parse(dr[7].ToString()),
+                        });
+                    }
+                    
+                }
+                /*
+                 * DateSortie = DateTime.FromFileTime(long.Parse(dr[3] == null ? null : dr[3].ToString())),
+                        Duree = new TimeSpan(long.Parse(dr[2]?.ToString())),
+                        DateSortie = DateTime.FromFileTime(long.Parse(dr[3].ToString())),
+                        Version = dr[4].ToString(),
+                        Emprunt = bool.Parse(dr[5].ToString()),
+                        Proprietaire = int.Parse(dr[6].ToString()),
+                        Disponible = bool.Parse(dr[7].ToString()),*/
 
             }
             finally

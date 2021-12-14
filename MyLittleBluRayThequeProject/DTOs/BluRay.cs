@@ -54,5 +54,10 @@
         /// Version du film sur le BR
         /// </summary>
         public string Version { get; set; }
+
+        public bool Emprunt { get; set; }
+
+        public bool Disponible { get; set; }
+        public int Proprietaire { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyLittleBluRayThequeProject.DTOs;
+using Npgsql;
 
 namespace MyLittleBluRayThequeProject.Repositories
 {
@@ -18,8 +19,8 @@ namespace MyLittleBluRayThequeProject.Repositories
             {
                 new BluRay
                 {
-                    Id = 0,
-                    Titre = "My Little film 1",
+                    Id = 4,
+                    Titre = "Sens of humour",
                     DateSortie = DateTime.Now,
                     Version = "Courte",
                     Acteurs = new List<Personne>
@@ -46,8 +47,8 @@ namespace MyLittleBluRayThequeProject.Repositories
                 },
                 new BluRay
                 {
-                    Id = 1,
-                    Titre = "My Little film 2",
+                    Id = 5,
+                    Titre = "La grande épopopé d'Ululysse",
                     DateSortie = DateTime.Now,
                     Version = "Longue",
                     Acteurs = new List<Personne>
@@ -70,7 +71,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                     {
                         "francais", "anglais"
                     },
-                    Duree = new TimeSpan(1, 25, 00),
+                    Duree = new TimeSpan(4, 25, 00),
                 }
             };
         }
@@ -113,6 +114,42 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
         }
 
+        public void PostBluRay(BluRay bluRay)
+        {
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"BluRay\" VALUES(@p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7)", conn);
+                command.Parameters.AddWithValue("p0", bluRay.Id);
+                command.Parameters.AddWithValue("p1", bluRay?.Titre);
+                command.Parameters.AddWithValue("p2", bluRay?.Duree.TotalMinutes);
+                command.Parameters.AddWithValue("p3", bluRay?.DateSortie);
+                command.Parameters.AddWithValue("p4", bluRay?.Version);
+                command.Parameters.AddWithValue("p5", bluRay?.Emprunt);
+                command.Parameters.AddWithValue("p6", bluRay?.Proprietaire);
+                command.Parameters.AddWithValue("p7", bluRay?.Disponible);
+
+                var dr = command.ExecuteNonQuery();
+
+                if(dr > 0)
+                {
+                    Console.WriteLine("Object inserted !");
+                }
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         /// <summary>
         /// Récupération d'un BR par son Id

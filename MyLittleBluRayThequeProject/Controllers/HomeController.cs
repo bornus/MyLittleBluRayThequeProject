@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyLittleBluRayThequeProject.DTOs;
 using MyLittleBluRayThequeProject.Models;
 using MyLittleBluRayThequeProject.Repositories;
 using System.Diagnostics;
@@ -20,7 +21,12 @@ namespace MyLittleBluRayThequeProject.Controllers
         public IActionResult Index()
         {
             IndexViewModel model = new IndexViewModel();
+            
             model.BluRays = brRepository.GetListeBluRay();
+            foreach(BluRay bray in model.BluRays)
+            {
+                //brRepository.PostBluRay(bray);
+            }
             return View(model);
         }
 

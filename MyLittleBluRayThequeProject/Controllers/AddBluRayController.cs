@@ -52,13 +52,13 @@ namespace MyLittleBluRayThequeProject.Controllers
             var duree = body.duree;
             var dateSortie = body.dateSortie;
             var langues = body.langues;
-            var ssTitre = body.ssTitres);
+            var ssTitre = body.ssTitres;
             var version = body.Version;
 
             Console.WriteLine("Titre : " + titre);
             Console.WriteLine("Scenariste : " + scenariste);
             Console.WriteLine("Realisateur: " + realisateur);
-            Console.WriteLine("Acteurs : " + acteurs.Count();
+            Console.WriteLine("Acteurs : " + acteurs.Count());
             Console.WriteLine("Duree : " + duree);
             Console.WriteLine("Date sortie : " + dateSortie);
             Console.WriteLine("Langues : " + langues.Count());

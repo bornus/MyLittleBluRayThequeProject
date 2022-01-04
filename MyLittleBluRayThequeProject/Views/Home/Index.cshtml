@@ -18,9 +18,14 @@
     <div>
         Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs ?? new List<MyLittleBluRayThequeProject.DTOs.Personne>())
         {
-            <div>nom :  @act.Nom</div>
-            <div>prenom :  @act.Prenom</div>
+            <p>
+                <div>nom :  @act.Nom</div>
+                <div>prenom :  @act.Prenom</div>
+            </p>
         }
+    </div>
+    <div>
+    Réalisateur : @Model.SelectedBluRay.Realisateur?.Nom @Model.SelectedBluRay.Realisateur?.Prenom
     </div>
     <div>
     Date de sortie : @Model.SelectedBluRay.DateSortie?.ToShortDateString()

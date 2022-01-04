@@ -1,0 +1,10 @@
+CREATE PROCEDURE "BluRayTheque"."GetRealisateurByBrId"(IN "BrId" integer, OUT p_id integer, OUT p_nom character varying, OUT p_prenom character varying, OUT "p_dateNaissance" date, OUT p_nationalite character varying)
+LANGUAGE 'plpgsql'
+AS $BODY$
+Select per.Id, per.Nom, per.Prenom, per.DateNaissance, per.Nationalite
+into p_id, p_nom, p_prenom, p_dateNaissance, p_nationalite
+ from "BluRayTheque"."Realisateur" as r
+      INNER JOIN "BluRayTheque"."Personne" as per
+    ON per."Id" = r."IdRealisateur"
+where r."IdBluRay" = BrId;
+$BODY$;

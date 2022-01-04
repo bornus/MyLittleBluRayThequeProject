@@ -1,6 +1,6 @@
 -- Table: BluRayTheque.Personne
 
--- DROP TABLE IF EXISTS "BluRayTheque"."Personne";
+--DROP TABLE IF EXISTS "BluRayTheque"."Personne";
 
 CREATE TABLE IF NOT EXISTS "BluRayTheque"."Personne"
 (

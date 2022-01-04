@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MyLittleBluRayThequeProject.DTOs;
+﻿using MyLittleBluRayThequeProject.DTOs;
 
 namespace MyLittleBluRayThequeProject.Models
 {
@@ -12,17 +11,20 @@ namespace MyLittleBluRayThequeProject.Models
 
         public Personne Realisateur { get; set; }
 
-        public List<Personne> Acteurs { get; set; }
+        public List<Personne> listActeurs { get; set; }
 
         public TimeSpan Duree { get; set; }
 
         public DateTime DateSortie { get; set; }
 
-        public List<string> Langues { get; set; }
-
-        public List<string> SsTitres { get; set; }
-
         public string Version { get; set; }
 
+        public List<Personne> listReal { get; set; }
+
+        public List<Personne> listScenar { get; set; }
+
+        public List<string> listLangues { get; set; }
+
+        public List<string> listSsTitre { get; set; }
     }
 }

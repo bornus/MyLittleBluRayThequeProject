@@ -12,7 +12,72 @@ namespace MyLittleBluRayThequeProject.Repositories
         {
 
         }
+
         public List<BluRay> GetListeBluRay()
+        {
+            return new List<BluRay>
+            {
+                new BluRay
+                {
+                    Id = 4,
+                    Titre = "Sens of humour",
+                    DateSortie = DateTime.Now,
+                    Version = "Courte",
+                    Acteurs = new List<Personne>
+                    {
+                        new Personne
+                        {
+                            Id = 0,
+                            Nom = "Per",
+                            Prenom = "Sonne",
+                            Nationalite = "Fr",
+                            DateNaissance = DateTime.Now,
+                            Professions = new List<string>{"Acteur"}
+                            }
+                        },
+                    Langues = new List<string>
+                    {
+                        "francais", "anglais"
+                        },
+                    SsTitres = new List<string>
+                    {
+                        "francais", "anglais"
+                        },
+                    Duree = new TimeSpan(2, 15, 45),
+                    },
+                new BluRay
+                {
+                    Id = 5,
+                    Titre = "La grande épopé d'Ululysse",
+                    DateSortie = DateTime.Now,
+                    Version = "Longue",
+                    Acteurs = new List<Personne>
+                    {
+                        new Personne
+                        {
+                            Id = 0,
+                            Nom = "Per",
+                            Prenom = "Sonne",
+                            Nationalite = "Fr",
+                            DateNaissance = DateTime.Now,
+                            Professions = new List<string>{"Acteur"}
+                        }
+                    },
+                    Langues = new List<string>
+                    {
+                        "francais", "anglais"
+                        },
+                    SsTitres = new List<string>
+                    {
+                        "francais", "anglais"
+                        },
+                    Duree = new TimeSpan(4, 25, 00),
+                    }
+            };
+        }
+
+
+        public IEnumerable<BluRay> GetListeBluRaySQL()
         {
             NpgsqlConnection conn = null;
             List<BluRay> result = new List<BluRay>();
@@ -133,10 +198,10 @@ namespace MyLittleBluRayThequeProject.Repositories
         }
 
 
-        public List<Personne> GetListActeurs()
+        public IEnumerable<string> GetListLangues()
         {
             NpgsqlConnection conn = null;
-            List<Personne> result = new List<Personne>();
+            List<string> result = new List<string>();
             try
             {
                 // Connect to a PostgreSQL database
@@ -144,21 +209,44 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"p\".\"Id\", \"p\".\"Nom\", \"p\".\"Prenom\", \"p\".\"DateNaissance\", \"p\".\"Nationalite\" FROM \"BluRayTheque\".\"Personne\" AS p JOIN \"BluRayTheque\".\"Acteur\" AS a ON \"a\".\"IdActeur\" = \"p\".\"Id\"", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"l\".\"Langue\" FROM \"BluRayTheque\".\"RefLangue\" AS l", conn);
 
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
 
                 // Output rows
                 while (dr.Read())
-                    result.Add(new Personne
-                    {
-                        Id = long.Parse(dr[0].ToString()),
-                        Nom = dr[1].ToString(),
-                        Prenom = dr[2].ToString(),
-                        DateNaissance = DateTime.Parse(dr[3].ToString()),
-                        Nationalite = dr[5].ToString()
-                    });
+                    result.Add(dr[0].ToString());
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
+
+        public IEnumerable<string> GetListSsTitre()
+        {
+            NpgsqlConnection conn = null;
+            List<string> result = new List<string>();
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"l\".\"Langue\" FROM \"BluRayTheque\".\"RefLangue\" AS l", conn);
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                    result.Add(dr[0].ToString());
             }
             finally
             {

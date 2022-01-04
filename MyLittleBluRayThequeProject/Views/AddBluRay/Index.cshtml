@@ -7,20 +7,33 @@
 }
 
 <div>
-    <form method="post" asp-action="Index" asp-route-id="id">
+
+    <form method="post" asp-controller="AddBluRay" asp-action="Index" asp-route-id="id">
 
         <label for="Titre">Titre :</label>
         <input type="text" name="Titre" id="Titre" /> <br>
 
+        
+        <label for="realisateur">Realisateur :</label>
+        <select name="IdReal" id="IdReal">
+            @foreach (var realisteur in Model.listReal ?? new List<MyLittleBluRayThequeProject.DTOs.Personne>()){
+                <option value="@realisteur.Id">@realisteur.Nom @realisteur.Prenom</option>
+            }
+        </select><br />
+
         <label for="scenariste">Scenariste :</label>
-        <input type="text" name="scenariste" id="scenariste" /><br>
-
-        <label for="realisteur">Realisateur :</label>
-        <input type="text" name="realisteur" id="realisteur" /><br>
-
+        <select name="IdScenar" id="IdScenar">
+            @foreach (var scenariste in Model.listScenar ?? new List<MyLittleBluRayThequeProject.DTOs.Personne>()){
+                <option value="@scenariste.Id">@scenariste.Nom @scenariste.Prenom</option>
+            }
+        </select><br />
+        
         <label for="acteurs">Acteurs :</label>
-        <input type="text" name="acteurs" id="acteurs" /><br>
-
+        <select name="IdsActeurs" id="IdsActeurs" multiple>
+            @foreach (var acteur in Model.listActeurs ?? new List<MyLittleBluRayThequeProject.DTOs.Personne>()){
+                <option value="@acteur.Id">@acteur.Nom @acteur.Prenom</option>
+            }
+        </select><br />
 
 
         <label for="duree">Duree :</label>
@@ -30,18 +43,23 @@
         <input type="date" name="dateSortie" id="dateSortie" /><br>
 
         <label for="langues">Langues :</label>
-        <input type="text" name="langues" id="langues" /><br>
-
-
+        <select name="langues" id="langues" multiple>
+           @foreach (var langue in Model.listLangues ?? new List<string>()){
+                <option value="@langue">@langue</option>
+           }
+        </select><br />
 
         <label for="ssTitre">Sous titres :</label>
-        <input type="text" name="ssTitre" id="ssTitre" /><br>
-
-
+        <select name="ssTitres" id="ssTitres" multiple >
+           @foreach (var ssTitre in Model.listSsTitre ?? new List<string>()){
+                <option value="@ssTitre">@ssTitre</option>
+            }
+        </select> <br />
 
         <label for="verison">Version :</label>
         <input type="text" name="version" id="version" /><br>
-        
+
         <input type="submit" value="Sauvegarder" />
     </form>
+
 </div>

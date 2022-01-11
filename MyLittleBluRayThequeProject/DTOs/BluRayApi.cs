@@ -22,5 +22,10 @@
         /// Le flag de la disponibilité du BluRay
         /// </summary>
         public bool Disponible { get; set; }
+
+        /// <summary>
+        /// Le flag de l'url d'où vient le bluray
+        /// </summary>
+        public string? FromUrl { get; set; }
     }
 }

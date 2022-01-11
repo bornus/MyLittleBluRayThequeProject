@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLittleBluRayThequeProject.DTOs;
 using MyLittleBluRayThequeProject.Models;
+using MyLittleBluRayThequeProject.Repositories;
 
 namespace MyLittleBluRayThequeProject.Controllers
 {
@@ -55,6 +56,17 @@ namespace MyLittleBluRayThequeProject.Controllers
             var ssTitre = body.ssTitres;
             var version = body.Version;
 
+            var br = new BluRay();
+            br.Titre = titre;
+            br.Duree = duree;
+            br.DateSortie = dateSortie;
+            br.Langues = langues;
+            br.SsTitres = ssTitre;
+            br.Version = version;
+
+            BluRayRepository brRepo = new BluRayRepository();
+            brRepo.PostBluRay(br);
+            
             Console.WriteLine("Titre : " + titre);
             Console.WriteLine("Scenariste : " + scenariste);
             Console.WriteLine("Realisateur: " + realisateur);
@@ -64,6 +76,8 @@ namespace MyLittleBluRayThequeProject.Controllers
             Console.WriteLine("Langues : " + langues.Count());
             Console.WriteLine("ssTitre : " + ssTitre.Count());
             Console.WriteLine("Version : " + version);
+
+
             var list = new List<Personne>
                     {
                         new Personne
@@ -89,6 +103,8 @@ namespace MyLittleBluRayThequeProject.Controllers
             {
                 "Francais", "Anglais", "Italien", "Allemand"
             };
+
+
             AddBluRayViewModel model = new AddBluRayViewModel();
             model.listReal = list;
             model.listActeurs = list;
@@ -97,19 +113,6 @@ namespace MyLittleBluRayThequeProject.Controllers
             model.listSsTitre = list2;
             return View(model);
         }
-
-        /*
-        public void getSelectValues()
-        {
-            for (var option of document.getElementById('realisateur').options)
-                {
-                    if (option.selected)
-                    {
-                        Console.WriteLine(option);
-                    }
-                }
-        }*/
-
 
     }
 }

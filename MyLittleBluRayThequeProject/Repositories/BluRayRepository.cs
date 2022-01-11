@@ -77,7 +77,7 @@ namespace MyLittleBluRayThequeProject.Repositories
         }
 
 
-        public IEnumerable<BluRay> GetListeBluRaySQL()
+        public List<BluRay> GetListeBluRaySQL()
         {
             NpgsqlConnection conn = null;
             List<BluRay> result = new List<BluRay>();

@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "BluRayTheque"."BluRaySsTitre"
     "Id" SERIAL NOT NULL,
     "IdBluRay" integer NOT NULL,
     "IdssTitreLangue" integer NOT NULL,
-    CONSTRAINT "BluRaySsTitre_pkey" PRIMARY KEY ("IdBluRay"),
+    CONSTRAINT "BluRaySsTitre_pkey" PRIMARY KEY ("Id"),
     CONSTRAINT "BluRaySsTitreIdBluRay" FOREIGN KEY ("IdBluRay")
         REFERENCES "BluRayTheque"."BluRay" ("Id") MATCH SIMPLE
         ON UPDATE NO ACTION

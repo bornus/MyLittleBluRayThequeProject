@@ -7,10 +7,12 @@ namespace MyLittleBluRayThequeProject.Business
     {
 
         private readonly BluRayRepository bluRayRepository;
+        private readonly PersonneRepository personneRepository;
 
         public BluRayBusiness()
         {
             this.bluRayRepository = new BluRayRepository();
+            this.personneRepository = new PersonneRepository();
         }
 
         public BluRay GetBluRay(long idBr)

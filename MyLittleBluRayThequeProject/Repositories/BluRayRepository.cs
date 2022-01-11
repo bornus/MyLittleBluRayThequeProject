@@ -123,6 +123,10 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
+                List<BluRay> list = GetListeBluRaySQL();
+                long id = list.LastOrDefault().Id + 1;
+                bluRay.Id = id;
+
                 // Define a query returning a single row result set
                 NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"BluRay\" VALUES(@p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7)", conn);
                 command.Parameters.AddWithValue("p0", bluRay.Id);

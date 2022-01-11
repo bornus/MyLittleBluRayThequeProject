@@ -30,11 +30,12 @@ namespace MyLittleBluRayThequeProject.Repositories
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
                 // Output rows
-                
+
                 while (dr.Read())
                 {
-                    Console.WriteLine("Id : "+dr[0].ToString()+ "Titre : " + dr[1].ToString() + "duree : " + dr[2].ToString() + "date : " + dr[3].ToString() + "Version : " + dr[4].ToString() + "Un bool : " + dr[5].ToString());
-                    if (dr!= null && dr[2].ToString()!= null) {
+                    Console.WriteLine("Id : " + dr[0].ToString() + "Titre : " + dr[1].ToString() + "duree : " + dr[2].ToString() + "date : " + dr[3].ToString() + "Version : " + dr[4].ToString() + "Un bool : " + dr[5].ToString());
+                    if (dr != null && dr[2].ToString() != null)
+                    {
                         result.Add(new BluRay
                         {
                             Id = long.Parse(dr[0].ToString()),
@@ -42,12 +43,12 @@ namespace MyLittleBluRayThequeProject.Repositories
                             Duree = dr[2].ToString().Equals("") ? new TimeSpan() : TimeSpan.FromSeconds(long.Parse(dr[2].ToString())),
                             DateSortie = dr[3].ToString().Equals("") ? new DateTime() : DateTime.Parse(dr[3].ToString()),
                             Version = dr[4].ToString(),
-                            Emprunt = dr[5].ToString().Equals("")? false : bool.Parse(dr[5].ToString()),
+                            Emprunt = dr[5].ToString().Equals("") ? false : bool.Parse(dr[5].ToString()),
                             Proprietaire = dr[6].ToString().Equals("") ? 0 : int.Parse(dr[6].ToString()),
                             Disponible = dr[7].ToString().Equals("") ? false : bool.Parse(dr[7].ToString()),
                         });
                     }
-                    
+
                 }
                 /*
                  * DateSortie = DateTime.FromFileTime(long.Parse(dr[3] == null ? null : dr[3].ToString())),

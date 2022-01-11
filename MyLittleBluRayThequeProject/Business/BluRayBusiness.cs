@@ -7,10 +7,12 @@ namespace MyLittleBluRayThequeProject.Business
     {
 
         private readonly BluRayRepository bluRayRepository;
+        private readonly PersonneRepository personneRepository;
 
         public BluRayBusiness()
         {
             this.bluRayRepository = new BluRayRepository();
+            this.personneRepository = new PersonneRepository();
         }
 
         public BluRay EmprunterBluRay(long idBr)
@@ -32,7 +34,6 @@ namespace MyLittleBluRayThequeProject.Business
         }
 
         public BluRay GetBluRay(long idBr)
-
         {
             BluRay bluRay = bluRayRepository.GetBluRay(idBr);
 
@@ -66,7 +67,7 @@ namespace MyLittleBluRayThequeProject.Business
             }
             return langues;
         }
-
+      
         public List<(long, string)> GetSsTitre()
         {
             List<(long, string)> ssTitres = bluRayRepository.GetListSsTitre();
@@ -88,7 +89,5 @@ namespace MyLittleBluRayThequeProject.Business
             bluRayRepository.LinkBluRayLangues(bluRay, langues);
 
         }
-
-
     }
 }

@@ -1,0 +1,14 @@
+﻿@model ExtendedIndexViewModel
+
+@{
+    ViewData["Title"] = "Extended BluRay Page";
+}
+
+    <h1>Liste de films</h1>
+
+@foreach (var br in Model?.BluRays)
+{
+    <div>
+    <a asp-area="" asp-controller="ExtendedBluRay" asp-action="SelectedBluRay" asp-route-id="@br.Id">@br.Titre</a>
+    </div>
+}

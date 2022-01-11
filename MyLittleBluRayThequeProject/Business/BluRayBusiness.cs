@@ -24,9 +24,9 @@ namespace MyLittleBluRayThequeProject.Business
                 throw new ArgumentException($"Bluray d'id :{idBr} non trouvé");
             }
 
-            bluRay.Realisateur = personneRepository.GetRealisateurBr(idBr);
+            //bluRay.Realisateur = personneRepository.GetRealisateurBr(idBr);
 
-            bluRay.Acteurs = personneRepository.GetActeursBr(idBr);
+            //bluRay.Acteurs = personneRepository.GetActeursBr(idBr);
 
             return bluRay;
         }

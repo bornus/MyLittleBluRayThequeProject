@@ -26,7 +26,7 @@
     Duree : @Model.SelectedBluRay.Duree.ToString()
     </div>
     <div>
-    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
+    Date de sortie : @Model.SelectedBluRay.DateSortie?.ToShortDateString()
     </div>
     <div>
         Langues : @foreach (var lg in Model.SelectedBluRay.Langues)

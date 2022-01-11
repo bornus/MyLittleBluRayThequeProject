@@ -15,11 +15,6 @@ namespace MyLittleBluRayThequeProject.Business
             this.personneRepository = new PersonneRepository();
         }
 
-        public IEnumerable<BluRay> GetBluRays()
-        {
-            return bluRayRepository.GetListeBluRaySQL();
-        }
-
         public BluRay EmprunterBluRay(long idBr)
         {
             BluRay br = this.GetBluRay(idBr);
@@ -52,7 +47,7 @@ namespace MyLittleBluRayThequeProject.Business
 
         public IEnumerable<BluRay> GetBlurays()
         {
-            List<BluRay> bluRays = bluRayRepository.GetListeBluRay();
+            List<BluRay> bluRays = bluRayRepository.GetListeBluRaySQL().ToList();
 
             if (bluRays == null)
             {
@@ -64,7 +59,7 @@ namespace MyLittleBluRayThequeProject.Business
 
         public List<(long, string)> GetLangues()
         {
-            List<(long, string)> langues = bluRayRepository.GetListLangues();
+            List<(long, string)> langues = bluRayRepository.GetListLangues().ToList();
 
             if (langues == null)
             {
@@ -72,10 +67,10 @@ namespace MyLittleBluRayThequeProject.Business
             }
             return langues;
         }
-      
+
         public List<(long, string)> GetSsTitre()
         {
-            List<(long, string)> ssTitres = bluRayRepository.GetListSsTitre();
+            List<(long, string)> ssTitres = bluRayRepository.GetListSsTitre().ToList();
 
             if (ssTitres == null)
             {
@@ -83,6 +78,16 @@ namespace MyLittleBluRayThequeProject.Business
             }
             return ssTitres;
         }
+
+        public void CreerBluRay(BluRay bluRay, long idRealisateur, long idScenariste, List<long> idsActeurs, List<string> ssTitres, List<string> langues)
+        {
+            bluRayRepository.PostBluRay(bluRay);
+            bluRayRepository.LinkBluRayRealisateur(bluRay, idRealisateur);
+            bluRayRepository.LinkBluRayScenariste(bluRay, idScenariste);
+            bluRayRepository.LinkBluRayActeurs(bluRay, idsActeurs);
+            bluRayRepository.LinkBluRaySsTitres(bluRay, ssTitres);
+            bluRayRepository.LinkBluRayLangues(bluRay, langues);
+
         }
     }
 }

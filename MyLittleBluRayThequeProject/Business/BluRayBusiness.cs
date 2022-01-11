@@ -44,7 +44,7 @@ namespace MyLittleBluRayThequeProject.Business
         }
 
 
-        public List<BluRay> GetBlurays()
+        public IEnumerable<BluRay> GetBlurays()
         {
             List<BluRay> bluRays = bluRayRepository.GetListeBluRay();
 

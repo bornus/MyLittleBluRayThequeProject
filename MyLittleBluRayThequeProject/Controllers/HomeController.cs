@@ -24,7 +24,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         {
             IndexViewModel model = new IndexViewModel();
             
-            model.BluRays = brBusiness.GetBluRays().ToList();
+            model.BluRays = brBusiness.GetBlurays().ToList();
             foreach(BluRay bray in model.BluRays)
             {
                 //brRepository.PostBluRay(bray);
@@ -35,7 +35,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         public IActionResult SelectedBluRay(long id)
         {
             IndexViewModel model = new IndexViewModel();
-            model.BluRays = brBusiness.GetBluRays().ToList();
+            model.BluRays = brBusiness.GetBlurays().ToList();
             model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
@@ -47,7 +47,7 @@ namespace MyLittleBluRayThequeProject.Controllers
             //Supprimer un bluray
 
             IndexViewModel model = new IndexViewModel();
-            model.BluRays = brBusiness.GetBluRays().ToList();
+            model.BluRays = brBusiness.GetBlurays().ToList();
             model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
             return View(model);
         }

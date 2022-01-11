@@ -9,6 +9,7 @@ namespace MyLittleBluRayThequeProject.Controllers
     {
 
         BluRayRepository brRepo = new BluRayRepository();
+        PersonneRepository prRepo = new PersonneRepository();
 
         public IActionResult Index()
         {
@@ -33,16 +34,13 @@ namespace MyLittleBluRayThequeProject.Controllers
                             Professions = new List<string>{"Acteur"}
                         }
                     };
-            var list2 = new List<string>
-            {
-                "Francais", "Anglais", "Italien", "Allemand"
-            };
+
             AddBluRayViewModel model = new AddBluRayViewModel();
-            model.listReal = list;
-            model.listActeurs = list;
-            model.listScenar = list;
+            model.listReal = prRepo.GetListRealisateurs();
+            model.listActeurs = prRepo.GetListActeurs();
+            model.listScenar = prRepo.GetListScenaristes();
             model.listLangues = brRepo.GetListLangues();
-            model.listSsTitre = list2;
+            model.listSsTitre = brRepo.GetListLangues();
             return View(model);
         }
 
@@ -91,18 +89,14 @@ namespace MyLittleBluRayThequeProject.Controllers
                             Professions = new List<string>{"Acteur"}
                         }
                     };
-            var list2 = new List<string>
-            {
-                "Francais", "Anglais", "Italien", "Allemand"
-            };
 
 
             AddBluRayViewModel model = new AddBluRayViewModel();
-            model.listReal = list;
-            model.listActeurs = list;
-            model.listScenar = list;
+            model.listReal = prRepo.GetListRealisateurs();
+            model.listActeurs = prRepo.GetListActeurs();
+            model.listScenar = prRepo.GetListScenaristes();
             model.listLangues = brRepo.GetListLangues();
-            model.listSsTitre = list2;
+            model.listSsTitre = brRepo.GetListLangues();
             return View(model);
         }
 

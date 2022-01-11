@@ -1,24 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLittleBluRayThequeProject.DTOs;
 using MyLittleBluRayThequeProject.Models;
-using MyLittleBluRayThequeProject.Repositories;
-using MyLittleBluRayThequeProject.Business;
 
 namespace MyLittleBluRayThequeProject.Controllers
 {
     public class AddBluRayController : Controller
     {
-
-        BluRayBusiness brBusiness = new BluRayBusiness();
-        PersonneBusiness prBusiness = new PersonneBusiness();
-
         public IActionResult Index()
-        {   AddBluRayViewModel model = new AddBluRayViewModel();
-            model.listReal = prBusiness.GetListPersonnes();
-            model.listActeurs = prBusiness.GetListPersonnes();
-            model.listScenar = prBusiness.GetListPersonnes();
-            model.listLangues = brBusiness.GetLangues();
-            model.listSsTitre = brBusiness.GetLangues();
+        {
+            var list = new List<Personne>
+                    {
+                        new Personne
+                        {
+                            Id = 0,
+                            Nom = "nom 0 ",
+                            Prenom = "prenom 0",
+                            Nationalite = "Fr",
+                            DateNaissance = DateTime.Now,
+                            Professions = new List<string>{"Acteur"}
+                        },
+                        new Personne
+                        {
+                            Id = 1,
+                            Nom = "nom 1",
+                            Prenom = "prenom 1",
+                            Nationalite = "Fr",
+                            DateNaissance = DateTime.Now,
+                            Professions = new List<string>{"Acteur"}
+                        }
+                    };
+            var list2 = new List<string>
+            {
+                "Francais", "Anglais", "Italien", "Allemand"
+            };
+            AddBluRayViewModel model = new AddBluRayViewModel();
+            model.listReal = list;
+            model.listActeurs = list;
+            model.listScenar = list;
+            model.listLangues = list2;
+            model.listSsTitre = list2;
             return View(model);
         }
 
@@ -26,30 +46,70 @@ namespace MyLittleBluRayThequeProject.Controllers
         public ViewResult Index([FromForm] AddBlurayBodyViewModel body)
         {
             var titre = body.Titre;
-            var idScenariste = body.IdScenar;
-            var idRealisateur = body.IdReal;
-            var idsActeurs = body.IdsActeurs;
+            var scenariste = body.IdScenar;
+            var realisateur = body.IdReal;
+            var acteurs = body.IdsActeurs;
             var duree = body.duree;
             var dateSortie = body.dateSortie;
             var langues = body.langues;
             var ssTitre = body.ssTitres;
             var version = body.Version;
 
-            var br = new BluRay();
-            br.Titre = titre;
-            br.Duree = duree;
-            br.DateSortie = dateSortie;
-            br.Version = version;
-            brBusiness.CreerBluRay(br, idRealisateur, idScenariste, idsActeurs, ssTitre, langues);
-
+            Console.WriteLine("Titre : " + titre);
+            Console.WriteLine("Scenariste : " + scenariste);
+            Console.WriteLine("Realisateur: " + realisateur);
+            Console.WriteLine("Acteurs : " + acteurs.Count());
+            Console.WriteLine("Duree : " + duree);
+            Console.WriteLine("Date sortie : " + dateSortie);
+            Console.WriteLine("Langues : " + langues.Count());
+            Console.WriteLine("ssTitre : " + ssTitre.Count());
+            Console.WriteLine("Version : " + version);
+            var list = new List<Personne>
+                    {
+                        new Personne
+                        {
+                            Id = 0,
+                            Nom = "nom 0 ",
+                            Prenom = "prenom 0",
+                            Nationalite = "Fr",
+                            DateNaissance = DateTime.Now,
+                            Professions = new List<string>{"Acteur"}
+                        },
+                        new Personne
+                        {
+                            Id = 1,
+                            Nom = "nom 1",
+                            Prenom = "prenom 1",
+                            Nationalite = "Fr",
+                            DateNaissance = DateTime.Now,
+                            Professions = new List<string>{"Acteur"}
+                        }
+                    };
+            var list2 = new List<string>
+            {
+                "Francais", "Anglais", "Italien", "Allemand"
+            };
             AddBluRayViewModel model = new AddBluRayViewModel();
-            model.listReal = prBusiness.GetListPersonnes();
-            model.listActeurs = prBusiness.GetListPersonnes();
-            model.listScenar = prBusiness.GetListPersonnes();
-            model.listLangues = brBusiness.GetLangues();
-            model.listSsTitre = brBusiness.GetLangues();
+            model.listReal = list;
+            model.listActeurs = list;
+            model.listScenar = list;
+            model.listLangues = list2;
+            model.listSsTitre = list2;
             return View(model);
         }
+
+        /*
+        public void getSelectValues()
+        {
+            for (var option of document.getElementById('realisateur').options)
+                {
+                    if (option.selected)
+                    {
+                        Console.WriteLine(option);
+                    }
+                }
+        }*/
+
 
     }
 }

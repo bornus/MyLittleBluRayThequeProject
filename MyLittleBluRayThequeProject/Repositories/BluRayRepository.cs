@@ -13,68 +13,6 @@ namespace MyLittleBluRayThequeProject.Repositories
 
         }
 
-        public List<BluRay> GetListeBluRay()
-        {
-            return new List<BluRay>
-            {
-                new BluRay
-                {
-                    Id = 4,
-                    Titre = "Sens of humour",
-                    DateSortie = DateTime.Now,
-                    Version = "Courte",
-                    Acteurs = new List<Personne>
-                    {
-                        new Personne
-                        {
-                            Id = 0,
-                            Nom = "Per",
-                            Prenom = "Sonne",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                            }
-                        },
-                    Langues = new List<string>
-                    {
-                        "francais", "anglais"
-                        },
-                    SsTitres = new List<string>
-                    {
-                        "francais", "anglais"
-                        },
-                    Duree = new TimeSpan(2, 15, 45),
-                    },
-                new BluRay
-                {
-                    Id = 5,
-                    Titre = "La grande épopé d'Ululysse",
-                    DateSortie = DateTime.Now,
-                    Version = "Longue",
-                    Acteurs = new List<Personne>
-                    {
-                        new Personne
-                        {
-                            Id = 0,
-                            Nom = "Per",
-                            Prenom = "Sonne",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        }
-                    },
-                    Langues = new List<string>
-                    {
-                        "francais", "anglais"
-                        },
-                    SsTitres = new List<string>
-                    {
-                        "francais", "anglais"
-                        },
-                    Duree = new TimeSpan(4, 25, 00),
-                    }
-            };
-        }
 
 
         public List<BluRay> GetListeBluRaySQL()
@@ -114,7 +52,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
         }
 
-        public void PostBluRay(BluRay bluRay)
+        public void PostBluRay(BluRay bluRay, long idRealisateur, long idScenariste, List<long> idsActeurs)
         {
             NpgsqlConnection conn = null;
             try
@@ -123,8 +61,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
-                List<BluRay> list = GetListeBluRaySQL();
-                long id = list.LastOrDefault().Id + 1;
+                long id = GetLastIdOfTable("BluRay") + 1;
                 bluRay.Id = id;
 
                 // Define a query returning a single row result set
@@ -140,7 +77,11 @@ namespace MyLittleBluRayThequeProject.Repositories
 
                 var dr = command.ExecuteNonQuery();
 
-                if(dr > 0)
+                LinkBluRayRealisateur(bluRay, idRealisateur);
+                LinkBluRayScenariste(bluRay, idScenariste);
+                LinkBluRayActeurs(bluRay, idsActeurs);
+
+                if (dr > 0)
                 {
                     Console.WriteLine("Object inserted !");
                 }
@@ -153,6 +94,116 @@ namespace MyLittleBluRayThequeProject.Repositories
                     conn.Close();
                 }
             }
+        }
+
+        public void LinkBluRayRealisateur(BluRay bluRay, long idReal)
+        {
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                long Id = this.GetLastIdOfTable("Realisateur") + 1;
+
+                NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"Realisateur\" VALUES(@p0,@p1,@p2)", conn);
+                command.Parameters.AddWithValue("p0", Id);
+                command.Parameters.AddWithValue("p1", bluRay?.Id);
+                command.Parameters.AddWithValue("p2", idReal);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Link created !");
+                }
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+        }
+
+        public void LinkBluRayScenariste(BluRay bluRay, long idScenar)
+        {
+
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                long Id = this.GetLastIdOfTable("Scenariste") + 1;
+
+                NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"Scenariste\" VALUES(@p0,@p1,@p2)", conn);
+                command.Parameters.AddWithValue("p0", Id);
+                command.Parameters.AddWithValue("p1", bluRay?.Id);
+                command.Parameters.AddWithValue("p2", idScenar);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Link created !");
+                }
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+        }
+
+        public void LinkBluRayActeurs(BluRay bluRay, List<long> idsActeurs)
+        {
+
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                foreach(long id in idsActeurs)
+                {
+                    long LastId = this.GetLastIdOfTable("Acteur") + 1;
+                    Console.WriteLine("lastId " + LastId);
+                    NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"Acteur\" VALUES(@p0,@p1,@p2)", conn);
+                    command.Parameters.AddWithValue("p0", LastId);
+                    command.Parameters.AddWithValue("p1", bluRay?.Id);
+                    command.Parameters.AddWithValue("p2", id);
+
+                    var dr = command.ExecuteNonQuery();
+                    Console.WriteLine("executed with id " + LastId);
+
+
+                    if (dr > 0)
+                    {
+                        Console.WriteLine("Link created !");
+                    }
+                }
+
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
         }
 
         /// <summary>
@@ -232,7 +283,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
         }
 
-        public IEnumerable<string> GetListSsTitre()
+        public List<string> GetListSsTitre()
         {
             NpgsqlConnection conn = null;
             List<string> result = new List<string>();
@@ -261,5 +312,44 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
             return result;
         }
+
+        private long GetLastIdOfTable(string table)
+        {
+            NpgsqlConnection conn = null;
+            List<long> result = new List<long>();
+            result.Add(0);
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\" FROM \"BluRayTheque\".\"" + table + "\"", conn);
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                {
+                    result.Add((int) dr[0]);
+                }
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return result.Last();
+
+        }
+
+
+
     }
 }
+

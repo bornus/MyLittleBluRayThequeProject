@@ -12,33 +12,10 @@ namespace MyLittleBluRayThequeProject.Controllers
         PersonneRepository prRepo = new PersonneRepository();
 
         public IActionResult Index()
-        {
-            var list = new List<Personne>
-                    {
-                        new Personne
-                        {
-                            Id = 0,
-                            Nom = "nom 0 ",
-                            Prenom = "prenom 0",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        },
-                        new Personne
-                        {
-                            Id = 1,
-                            Nom = "nom 1",
-                            Prenom = "prenom 1",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        }
-                    };
-
-            AddBluRayViewModel model = new AddBluRayViewModel();
-            model.listReal = prRepo.GetListRealisateurs();
-            model.listActeurs = prRepo.GetListActeurs();
-            model.listScenar = prRepo.GetListScenaristes();
+        {   AddBluRayViewModel model = new AddBluRayViewModel();
+            model.listReal = prRepo.GetListPersonnes();
+            model.listActeurs = prRepo.GetListPersonnes();
+            model.listScenar = prRepo.GetListPersonnes();
             model.listLangues = brRepo.GetListLangues();
             model.listSsTitre = brRepo.GetListLangues();
             return View(model);
@@ -48,9 +25,9 @@ namespace MyLittleBluRayThequeProject.Controllers
         public ViewResult Index([FromForm] AddBlurayBodyViewModel body)
         {
             var titre = body.Titre;
-            var scenariste = body.IdScenar;
-            var realisateur = body.IdReal;
-            var acteurs = body.IdsActeurs;
+            var idScenariste = body.IdScenar;
+            var idRealisateur = body.IdReal;
+            var idsActeurs = body.IdsActeurs;
             var duree = body.duree;
             var dateSortie = body.dateSortie;
             var langues = body.langues;
@@ -65,36 +42,12 @@ namespace MyLittleBluRayThequeProject.Controllers
             br.SsTitres = ssTitre;
             br.Version = version;
 
-            brRepo.PostBluRay(br);
-
-
-            var list = new List<Personne>
-                    {
-                        new Personne
-                        {
-                            Id = 0,
-                            Nom = "nom 0 ",
-                            Prenom = "prenom 0",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        },
-                        new Personne
-                        {
-                            Id = 1,
-                            Nom = "nom 1",
-                            Prenom = "prenom 1",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        }
-                    };
-
+            brRepo.PostBluRay(br, idRealisateur, idScenariste, idsActeurs);
 
             AddBluRayViewModel model = new AddBluRayViewModel();
-            model.listReal = prRepo.GetListRealisateurs();
-            model.listActeurs = prRepo.GetListActeurs();
-            model.listScenar = prRepo.GetListScenaristes();
+            model.listReal = prRepo.GetListPersonnes();
+            model.listActeurs = prRepo.GetListPersonnes();
+            model.listScenar = prRepo.GetListPersonnes();
             model.listLangues = brRepo.GetListLangues();
             model.listSsTitre = brRepo.GetListLangues();
             return View(model);

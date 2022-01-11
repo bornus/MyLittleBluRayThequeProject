@@ -2,13 +2,14 @@
 using MyLittleBluRayThequeProject.DTOs;
 using MyLittleBluRayThequeProject.Models;
 using MyLittleBluRayThequeProject.Repositories;
+using MyLittleBluRayThequeProject.Business;
 
 namespace MyLittleBluRayThequeProject.Controllers
 {
     public class AddBluRayController : Controller
     {
 
-        BluRayRepository brRepo = new BluRayRepository();
+        BluRayBusiness brBusiness = new BluRayBusiness();
         PersonneRepository prRepo = new PersonneRepository();
 
         public IActionResult Index()
@@ -16,8 +17,8 @@ namespace MyLittleBluRayThequeProject.Controllers
             model.listReal = prRepo.GetListPersonnes();
             model.listActeurs = prRepo.GetListPersonnes();
             model.listScenar = prRepo.GetListPersonnes();
-            model.listLangues = brRepo.GetListLangues();
-            model.listSsTitre = brRepo.GetListLangues();
+            model.listLangues = brBusiness.GetListLangues();
+            model.listSsTitre = brBusiness.GetListLangues();
             return View(model);
         }
 
@@ -38,18 +39,16 @@ namespace MyLittleBluRayThequeProject.Controllers
             br.Titre = titre;
             br.Duree = duree;
             br.DateSortie = dateSortie;
-            br.Langues = langues;
-            br.SsTitres = ssTitre;
             br.Version = version;
 
-            brRepo.PostBluRay(br, idRealisateur, idScenariste, idsActeurs);
+            brBusiness.CreerBluRay(br, idRealisateur, idScenariste, idsActeurs, ssTitre, langues);
 
             AddBluRayViewModel model = new AddBluRayViewModel();
             model.listReal = prRepo.GetListPersonnes();
             model.listActeurs = prRepo.GetListPersonnes();
             model.listScenar = prRepo.GetListPersonnes();
-            model.listLangues = brRepo.GetListLangues();
-            model.listSsTitre = brRepo.GetListLangues();
+            model.listLangues = brBusiness.GetListLangues();
+            model.listSsTitre = brBusiness.GetListLangues();
             return View(model);
         }
 

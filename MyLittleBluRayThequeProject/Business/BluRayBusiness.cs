@@ -30,5 +30,53 @@ namespace MyLittleBluRayThequeProject.Business
 
             return bluRay;
         }
+
+
+        public List<BluRay> GetListBluRay()
+        {
+            List<BluRay> bluRays = bluRayRepository.GetListeBluRaySQL();
+
+            if (bluRays == null)
+            {
+                throw new ArgumentException("Liste des BluRay non trouvé");
+            }
+
+            return bluRays;
+        }
+
+        public List<(long, string)> GetListLangues()
+        {
+            List<(long, string)> langues = bluRayRepository.GetListLangues();
+
+            if (langues == null)
+            {
+                throw new ArgumentException("Liste des langues non trouvé");
+            }
+            return langues;
+        }
+
+        public List<(long, string)> GetListSsTitre()
+        {
+            List<(long, string)> ssTitres = bluRayRepository.GetListSsTitre();
+
+            if (ssTitres == null)
+            {
+                throw new ArgumentException("Liste des sous titre non trouvé");
+            }
+            return ssTitres;
+        }
+
+        public void CreerBluRay(BluRay bluRay, long idRealisateur, long idScenariste, List<long> idsActeurs, List<string> ssTitres, List<string> langues)
+        {
+            bluRayRepository.PostBluRay(bluRay, idRealisateur, idScenariste, idsActeurs);
+            bluRayRepository.LinkBluRayRealisateur(bluRay, idRealisateur);
+            bluRayRepository.LinkBluRayScenariste(bluRay, idScenariste);
+            bluRayRepository.LinkBluRayActeurs(bluRay, idsActeurs);
+            bluRayRepository.LinkBluRaySsTitres(bluRay, ssTitres);
+            bluRayRepository.LinkBluRayLangues(bluRay, langues);
+
+        }
+
+
     }
 }

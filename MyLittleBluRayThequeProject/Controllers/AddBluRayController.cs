@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyLittleBluRayThequeProject.Business;
 using MyLittleBluRayThequeProject.DTOs;
 using MyLittleBluRayThequeProject.Models;
 
@@ -6,34 +7,14 @@ namespace MyLittleBluRayThequeProject.Controllers
 {
     public class AddBluRayController : Controller
     {
+        BluRayBusiness brBu = new BluRayBusiness();
+        PersonneBusiness prBu = new PersonneBusiness();
         public IActionResult Index()
         {
-            var list = new List<Personne>
-                    {
-                        new Personne
-                        {
-                            Id = 0,
-                            Nom = "nom 0 ",
-                            Prenom = "prenom 0",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        },
-                        new Personne
-                        {
-                            Id = 1,
-                            Nom = "nom 1",
-                            Prenom = "prenom 1",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        }
-                    };
-            var list2 = new List<string>
-            {
-                "Francais", "Anglais", "Italien", "Allemand"
-            };
+            
             AddBluRayViewModel model = new AddBluRayViewModel();
+            var list = prBu.GetListePersonne();
+            var list2 = brBu.GetLangues();
             model.listReal = list;
             model.listActeurs = list;
             model.listScenar = list;
@@ -55,41 +36,9 @@ namespace MyLittleBluRayThequeProject.Controllers
             var ssTitre = body.ssTitres;
             var version = body.Version;
 
-            Console.WriteLine("Titre : " + titre);
-            Console.WriteLine("Scenariste : " + scenariste);
-            Console.WriteLine("Realisateur: " + realisateur);
-            Console.WriteLine("Acteurs : " + acteurs.Count());
-            Console.WriteLine("Duree : " + duree);
-            Console.WriteLine("Date sortie : " + dateSortie);
-            Console.WriteLine("Langues : " + langues.Count());
-            Console.WriteLine("ssTitre : " + ssTitre.Count());
-            Console.WriteLine("Version : " + version);
-            var list = new List<Personne>
-                    {
-                        new Personne
-                        {
-                            Id = 0,
-                            Nom = "nom 0 ",
-                            Prenom = "prenom 0",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        },
-                        new Personne
-                        {
-                            Id = 1,
-                            Nom = "nom 1",
-                            Prenom = "prenom 1",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string>{"Acteur"}
-                        }
-                    };
-            var list2 = new List<string>
-            {
-                "Francais", "Anglais", "Italien", "Allemand"
-            };
             AddBluRayViewModel model = new AddBluRayViewModel();
+            var list = prBu.GetListePersonne();
+            var list2 = brBu.GetLangues();
             model.listReal = list;
             model.listActeurs = list;
             model.listScenar = list;
@@ -97,19 +46,6 @@ namespace MyLittleBluRayThequeProject.Controllers
             model.listSsTitre = list2;
             return View(model);
         }
-
-        /*
-        public void getSelectValues()
-        {
-            for (var option of document.getElementById('realisateur').options)
-                {
-                    if (option.selected)
-                    {
-                        Console.WriteLine(option);
-                    }
-                }
-        }*/
-
 
     }
 }

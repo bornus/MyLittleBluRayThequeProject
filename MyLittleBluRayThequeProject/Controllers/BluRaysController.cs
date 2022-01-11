@@ -27,7 +27,7 @@ namespace MyLittleBluRayThequeProject.Controllers
             [HttpGet()]
             public ObjectResult Get()
             {
-                List<BluRay> br = brManager.GetBluRays().ToList();
+                List<BluRay> br = brManager.GetBlurays().ToList();
                 List<InfoBluRayApiViewModel> bluRays = br.ConvertAll(InfoBluRayApiViewModel.ToModel);
                 return new OkObjectResult(bluRays);
             }

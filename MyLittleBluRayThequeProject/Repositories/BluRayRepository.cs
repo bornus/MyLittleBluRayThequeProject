@@ -202,7 +202,7 @@ namespace MyLittleBluRayThequeProject.Repositories
         }
 
 
-        public IEnumerable<string> GetListLangues()
+        public List<string> GetListLangues()
         {
             NpgsqlConnection conn = null;
             List<string> result = new List<string>();

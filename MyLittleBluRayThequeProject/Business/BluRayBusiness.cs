@@ -32,7 +32,7 @@ namespace MyLittleBluRayThequeProject.Business
 
         public List<BluRay> GetBlurays()
         {
-            List<BluRay> bluRays = bluRayRepository.GetListeBluRaySQL();
+            List<BluRay> bluRays = bluRayRepository.GetListeBluRay();
 
             if (bluRays == null)
             {

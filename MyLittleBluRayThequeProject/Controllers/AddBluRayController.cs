@@ -40,7 +40,6 @@ namespace MyLittleBluRayThequeProject.Controllers
             br.Duree = duree;
             br.DateSortie = dateSortie;
             br.Version = version;
-
             brBusiness.CreerBluRay(br, idRealisateur, idScenariste, idsActeurs, ssTitre, langues);
 
             AddBluRayViewModel model = new AddBluRayViewModel();

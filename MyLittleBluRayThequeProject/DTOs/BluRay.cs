@@ -5,6 +5,11 @@
     /// </summary>
     public class BluRay
     {
+        private long realisateur;
+        private long scenariste;
+        private List<long> acteurs;
+        private List<string> ssTitre;
+
         /// <summary>
         /// Identifiant technique
         /// </summary>

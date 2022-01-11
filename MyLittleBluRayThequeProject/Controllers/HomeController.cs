@@ -22,7 +22,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         {
             IndexViewModel model = new IndexViewModel();
             
-            model.BluRays = brRepository.GetListeBluRay();
+            model.BluRays = brRepository.GetListeBluRaySQL();
             foreach(BluRay bray in model.BluRays)
             {
                 //brRepository.PostBluRay(bray);

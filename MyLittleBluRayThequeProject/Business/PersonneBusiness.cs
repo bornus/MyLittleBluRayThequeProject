@@ -6,7 +6,7 @@ namespace MyLittleBluRayThequeProject.Business
     public class PersonneBusiness
     {
         PersonneRepository personneRepository = new PersonneRepository();
-        public List<Personne> GetListePersonne()
+        public List<Personne> GetListPersonnes()
         {
             List<Personne> personnes = personneRepository.GetListPersonnes();
 

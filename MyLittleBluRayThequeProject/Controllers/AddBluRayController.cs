@@ -10,15 +10,15 @@ namespace MyLittleBluRayThequeProject.Controllers
     {
 
         BluRayBusiness brBusiness = new BluRayBusiness();
-        PersonneRepository prRepo = new PersonneRepository();
+        PersonneBusiness prBusiness = new PersonneBusiness();
 
         public IActionResult Index()
         {   AddBluRayViewModel model = new AddBluRayViewModel();
-            model.listReal = prRepo.GetListPersonnes();
-            model.listActeurs = prRepo.GetListPersonnes();
-            model.listScenar = prRepo.GetListPersonnes();
-            model.listLangues = brBusiness.GetListLangues();
-            model.listSsTitre = brBusiness.GetListLangues();
+            model.listReal = prBusiness.GetListPersonnes();
+            model.listActeurs = prBusiness.GetListPersonnes();
+            model.listScenar = prBusiness.GetListPersonnes();
+            model.listLangues = brBusiness.GetLangues();
+            model.listSsTitre = brBusiness.GetLangues();
             return View(model);
         }
 
@@ -44,11 +44,11 @@ namespace MyLittleBluRayThequeProject.Controllers
             brBusiness.CreerBluRay(br, idRealisateur, idScenariste, idsActeurs, ssTitre, langues);
 
             AddBluRayViewModel model = new AddBluRayViewModel();
-            model.listReal = prRepo.GetListPersonnes();
-            model.listActeurs = prRepo.GetListPersonnes();
-            model.listScenar = prRepo.GetListPersonnes();
-            model.listLangues = brBusiness.GetListLangues();
-            model.listSsTitre = brBusiness.GetListLangues();
+            model.listReal = prBusiness.GetListPersonnes();
+            model.listActeurs = prBusiness.GetListPersonnes();
+            model.listScenar = prBusiness.GetListPersonnes();
+            model.listLangues = brBusiness.GetLangues();
+            model.listSsTitre = brBusiness.GetLangues();
             return View(model);
         }
 

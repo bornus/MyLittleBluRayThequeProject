@@ -30,11 +30,23 @@ namespace MyLittleBluRayThequeProject.Controllers
             return View(model);
         }
 
-        public IActionResult SelectedBluRay([FromRoute]long idBr)
+        public IActionResult SelectedBluRay(long id)
         {
             IndexViewModel model = new IndexViewModel();
             model.BluRays = brRepository.GetListeBluRay();
-            model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == idBr);
+            model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
+            return View(model);
+        }
+
+        // Ajout suppression d'un bluray
+        [HttpPost]
+        public IActionResult Index(long id)
+        {
+            //Supprimer un bluray
+
+            IndexViewModel model = new IndexViewModel();
+            model.BluRays = brRepository.GetListeBluRay();
+            model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
 

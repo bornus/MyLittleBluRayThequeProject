@@ -24,4 +24,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "AddbBluRay",
+    pattern: "{controller=AddBluRay}/{action=Index}/{id?}");
 app.Run();

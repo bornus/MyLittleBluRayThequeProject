@@ -3,13 +3,12 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
+    <h1>Liste de films</h1>
+
 @foreach (var br in Model?.BluRays)
 {
     <div>
-    <a asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id"> Titre : @br.Titre</a>
+    <a asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id">@br.Titre</a>
     </div>
 }
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>

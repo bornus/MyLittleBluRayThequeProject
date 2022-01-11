@@ -13,7 +13,26 @@ namespace MyLittleBluRayThequeProject.Business
             this.bluRayRepository = new BluRayRepository();
         }
 
-        public BluRay GetBluRayById(long idBr)
+        public BluRay EmprunterBluRay(long idBr)
+        {
+            BluRay br = this.GetBluRay(idBr);
+            if (br.Disponible)
+            {
+                bool success = bluRayRepository.EmpruntBluRay(idBr);
+                if (!success)
+                {
+                    throw new ArgumentException($"L'emprunt a échoué pour le bluray d'id :{idBr}");
+                }
+                else
+                {
+                    return br;
+                }
+            }
+            return null;
+        }
+
+        public BluRay GetBluRay(long idBr)
+
         {
             BluRay bluRay = bluRayRepository.GetBluRay(idBr);
 
@@ -21,11 +40,6 @@ namespace MyLittleBluRayThequeProject.Business
             {
                 throw new ArgumentException($"Bluray d'id :{idBr} non trouvé");
             }
-
-            //bluRay.Realisateur = personneRepository.GetRealisateurBr(idBr);
-
-            //bluRay.Acteurs = personneRepository.GetActeursBr(idBr);
-
             return bluRay;
         }
 

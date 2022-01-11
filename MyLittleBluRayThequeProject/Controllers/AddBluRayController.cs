@@ -66,16 +66,6 @@ namespace MyLittleBluRayThequeProject.Controllers
 
             BluRayRepository brRepo = new BluRayRepository();
             brRepo.PostBluRay(br);
-            
-            Console.WriteLine("Titre : " + titre);
-            Console.WriteLine("Scenariste : " + scenariste);
-            Console.WriteLine("Realisateur: " + realisateur);
-            Console.WriteLine("Acteurs : " + acteurs.Count());
-            Console.WriteLine("Duree : " + duree);
-            Console.WriteLine("Date sortie : " + dateSortie);
-            Console.WriteLine("Langues : " + langues.Count());
-            Console.WriteLine("ssTitre : " + ssTitre.Count());
-            Console.WriteLine("Version : " + version);
 
 
             var list = new List<Personne>

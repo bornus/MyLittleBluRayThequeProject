@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyLittleBluRayThequeProject.Business;
 using MyLittleBluRayThequeProject.DTOs;
 using MyLittleBluRayThequeProject.Models;
 using MyLittleBluRayThequeProject.Repositories;
@@ -11,11 +12,13 @@ namespace MyLittleBluRayThequeProject.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly BluRayRepository brRepository;
+        private readonly BluRayBusiness brBusiness;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
             brRepository = new BluRayRepository();
+            brBusiness = new BluRayBusiness();
         }
 
         public IActionResult Index()

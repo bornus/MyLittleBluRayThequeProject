@@ -2,6 +2,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -13,7 +15,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+
+
+//app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -27,4 +34,5 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "AddbBluRay",
     pattern: "{controller=AddBluRay}/{action=Index}/{id?}");
+app.MapControllers();
 app.Run();

@@ -6,7 +6,7 @@ namespace MyLittleBluRayThequeProject.Repositories
     public class PersonneRepository
     {
 
-        public IEnumerable<Personne> GetListActeurs()
+        public List<Personne> GetListActeurs()
         {
             NpgsqlConnection conn = null;
             List<Personne> result = new List<Personne>();
@@ -44,7 +44,7 @@ namespace MyLittleBluRayThequeProject.Repositories
         }
 
 
-        public IEnumerable<Personne> GetListRealisateurs()
+        public List<Personne> GetListRealisateurs()
         {
             NpgsqlConnection conn = null;
             List<Personne> result = new List<Personne>();
@@ -81,7 +81,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
         }
 
-        public IEnumerable<Personne> GetListScenaristes()
+        public List<Personne> GetListScenaristes()
         {
             NpgsqlConnection conn = null;
             List<Personne> result = new List<Personne>();

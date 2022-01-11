@@ -38,7 +38,7 @@
         /// <summary>
         /// Date de sortie du film
         /// </summary>
-        public DateTime DateSortie { get; set; }
+        public DateTime? DateSortie { get; set; }
 
         /// <summary>
         /// Langues disponibles sur le BR

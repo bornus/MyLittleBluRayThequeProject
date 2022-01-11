@@ -33,22 +33,22 @@ namespace MyLittleBluRayThequeProject.Repositories
                             Nationalite = "Fr",
                             DateNaissance = DateTime.Now,
                             Professions = new List<string>{"Acteur"}
-                        }
-                    },
+                            }
+                        },
                     Langues = new List<string>
                     {
                         "francais", "anglais"
-                    },
+                        },
                     SsTitres = new List<string>
                     {
                         "francais", "anglais"
-                    },
+                        },
                     Duree = new TimeSpan(2, 15, 45),
-                },
+                    },
                 new BluRay
                 {
                     Id = 5,
-                    Titre = "La grande épopopé d'Ululysse",
+                    Titre = "La grande épopé d'Ululysse",
                     DateSortie = DateTime.Now,
                     Version = "Longue",
                     Acteurs = new List<Personne>
@@ -66,13 +66,13 @@ namespace MyLittleBluRayThequeProject.Repositories
                     Langues = new List<string>
                     {
                         "francais", "anglais"
-                    },
+                        },
                     SsTitres = new List<string>
                     {
                         "francais", "anglais"
-                    },
+                        },
                     Duree = new TimeSpan(4, 25, 00),
-                }
+                    }
             };
         }
 
@@ -182,7 +182,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             {
                 List<BluRay> qryResult = new List<BluRay>();
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=psw;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
@@ -204,6 +204,67 @@ namespace MyLittleBluRayThequeProject.Repositories
 
                 result = qryResult.SingleOrDefault();
 
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
+
+
+        public IEnumerable<string> GetListLangues()
+        {
+            NpgsqlConnection conn = null;
+            List<string> result = new List<string>();
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"l\".\"Langue\" FROM \"BluRayTheque\".\"RefLangue\" AS l", conn);
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                    result.Add(dr[0].ToString());
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
+
+        public IEnumerable<string> GetListSsTitre()
+        {
+            NpgsqlConnection conn = null;
+            List<string> result = new List<string>();
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"l\".\"Langue\" FROM \"BluRayTheque\".\"RefLangue\" AS l", conn);
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                    result.Add(dr[0].ToString());
             }
             finally
             {

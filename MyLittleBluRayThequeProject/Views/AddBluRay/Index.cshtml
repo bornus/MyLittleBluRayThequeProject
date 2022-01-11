@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AddBluRayViewModel
+@{
+    ViewData["Title"] = "Add BluRay Page";
+}
+
+<div>
+
+    <form method="post" asp-controller="AddBluRay" asp-action="Index" asp-route-id="id">
+
+        <label for="Titre">Titre :</label>
+        <input type="text" name="Titre" id="Titre" /> <br>
+
+        
+        <label for="realisateur">Realisateur :</label>
+        <select name="IdReal" id="IdReal">
+            @foreach (var realisteur in Model.listReal ?? new List<MyLittleBluRayThequeProject.DTOs.Personne>()){
+                <option value="@realisteur.Id">@realisteur.Nom @realisteur.Prenom</option>
+            }
+        </select><br />
+
+        <label for="scenariste">Scenariste :</label>
+        <select name="IdScenar" id="IdScenar">
+            @foreach (var scenariste in Model.listScenar ?? new List<MyLittleBluRayThequeProject.DTOs.Personne>()){
+                <option value="@scenariste.Id">@scenariste.Nom @scenariste.Prenom</option>
+            }
+        </select><br />
+        
+        <label for="acteurs">Acteurs :</label>
+        <select name="IdsActeurs" id="IdsActeurs" multiple>
+            @foreach (var acteur in Model.listActeurs ?? new List<MyLittleBluRayThequeProject.DTOs.Personne>()){
+                <option value="@acteur.Id">@acteur.Nom @acteur.Prenom</option>
+            }
+        </select><br />
+
+
+        <label for="duree">Duree :</label>
+        <input type="time" name="duree" id="duree" /><br>
+
+        <label for="dateSortie">Date de sortie :</label>
+        <input type="date" name="dateSortie" id="dateSortie" /><br>
+
+        <label for="langues">Langues :</label>
+        <select name="langues" id="langues" multiple>
+           @foreach (var langue in Model.listLangues ?? new List<string>()){
+                <option value="@langue">@langue</option>
+           }
+        </select><br />
+
+        <label for="ssTitre">Sous titres :</label>
+        <select name="ssTitres" id="ssTitres" multiple >
+           @foreach (var ssTitre in Model.listSsTitre ?? new List<string>()){
+                <option value="@ssTitre">@ssTitre</option>
+            }
+        </select> <br />
+
+        <label for="verison">Version :</label>
+        <input type="text" name="version" id="version" /><br>
+
+        <input type="submit" value="Sauvegarder" />
+    </form>
+
+</div>

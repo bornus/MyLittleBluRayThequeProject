@@ -4,7 +4,6 @@
 @model IndexViewModel
 @{
     ViewData["Title"] = "Selected BluRay Page";
-
 }
 <div class="text-center">
     <div>
@@ -27,7 +26,7 @@
     Duree : @Model.SelectedBluRay.Duree.ToString()
     </div>
     <div>
-    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
+    Date de sortie : @Model.SelectedBluRay.DateSortie?.ToShortDateString()
     </div>
     <div>
         Langues : @foreach (var lg in Model.SelectedBluRay.Langues)
@@ -43,7 +42,17 @@
     </div>
     <div>
     Version : @Model.SelectedBluRay.Version
-
     </div>
 
+    <div>
+        <form method="post" asp-controller="Home" asp-action="Index" asp-route-id="@Model.SelectedBluRay.Id">
+            <input type="submit" value="Supprimer" />
+        </form>
+    </div>
+
+    <div>
+        <form method="post" asp-controller="Home" asp-action="Index">
+            <input type="submit" value="Retour" />
+        </form>
+    </div>
 </div> 

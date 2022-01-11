@@ -74,9 +74,9 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=49rkpFl0;Database=postgres;");
                 conn.Open();
                 tran = conn.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("select \"BluRayTheque\".\"GetActeursByBRId\"(@brid, @cur)", conn))
+                using (var cmd = new NpgsqlCommand("\"BluRayTheque\".\"GetActeursByBRId\"", conn))
                 {
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("brid", idBr);
                     cmd.Parameters.Add(new NpgsqlParameter("@cur", NpgsqlTypes.NpgsqlDbType.Refcursor) { Direction = ParameterDirection.InputOutput, Value = "cur" });
 

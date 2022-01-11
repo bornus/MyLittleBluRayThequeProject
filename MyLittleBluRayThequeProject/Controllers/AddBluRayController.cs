@@ -7,6 +7,9 @@ namespace MyLittleBluRayThequeProject.Controllers
 {
     public class AddBluRayController : Controller
     {
+
+        BluRayRepository brRepo = new BluRayRepository();
+
         public IActionResult Index()
         {
             var list = new List<Personne>
@@ -38,7 +41,7 @@ namespace MyLittleBluRayThequeProject.Controllers
             model.listReal = list;
             model.listActeurs = list;
             model.listScenar = list;
-            model.listLangues = list2;
+            model.listLangues = brRepo.GetListLangues();
             model.listSsTitre = list2;
             return View(model);
         }
@@ -64,7 +67,6 @@ namespace MyLittleBluRayThequeProject.Controllers
             br.SsTitres = ssTitre;
             br.Version = version;
 
-            BluRayRepository brRepo = new BluRayRepository();
             brRepo.PostBluRay(br);
 
 
@@ -99,7 +101,7 @@ namespace MyLittleBluRayThequeProject.Controllers
             model.listReal = list;
             model.listActeurs = list;
             model.listScenar = list;
-            model.listLangues = list2;
+            model.listLangues = brRepo.GetListLangues();
             model.listSsTitre = list2;
             return View(model);
         }

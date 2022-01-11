@@ -20,7 +20,36 @@ namespace MyLittleBluRayThequeProject.Repositories
             {
                 client.Dispose();
             }
+            result.ForEach(x => x.FromUrl = baseUrl);
             return result;
+        }
+
+        public void EmprunterBluRay(BluRayApi brApi, string baseUrl)
+        {
+            if (brApi.Disponible)
+            {
+                HttpClient client = new HttpClient();
+                BluRayApi result = new BluRayApi();
+                try
+                {
+                    HttpContent httpContent = new StringContent("");
+                    HttpResponseMessage response = client.PostAsync($"{baseUrl}/{brApi.Id}/Emprunt", httpContent).Result;
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = response.Content.ReadAsStringAsync().Result;
+                    result = JsonConvert.DeserializeObject<BluRayApi>(responseBody);
+                }
+                finally
+                {
+                    client.Dispose();
+                }
+            }
+            
+        }
+
+        public List<string> getUrls()
+        {
+            List<string> urls = new List<string>(){ "https://localhost:7266"};
+            return urls;
         }
     }
 }

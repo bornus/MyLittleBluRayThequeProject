@@ -25,7 +25,7 @@
         <label for="scenariste">Scenariste :</label>
         <select name="IdScenar" id="IdScenar">
             @foreach (var scenariste in Model.listScenar ?? new List<MyLittleBluRayThequeProject.DTOs.Personne>()){
-                <option value="@scenariste">@scenariste.Nom @scenariste.Prenom</option>
+                <option value="@scenariste.Id">@scenariste.Nom @scenariste.Prenom</option>
             }
         </select><br />
         

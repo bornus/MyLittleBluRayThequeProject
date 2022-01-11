@@ -12,7 +12,9 @@ namespace MyLittleBluRayThequeProject.Repositories
         {
 
         }
-        public List<BluRay> GetListeBluRaySQL()
+
+
+        public List<BluRay> GetListeBluRay()
         {
             NpgsqlConnection conn = null;
             List<BluRay> result = new List<BluRay>();
@@ -151,6 +153,38 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
         }
 
+        public void LinkBluRayRealisateur(BluRay bluRay, long idRealisateur)
+        {
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                long Id = this.GetLastIdOfTable("Realisateur") + 1;
+
+                NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"Realisateur\" VALUES(@p0,@p1,@p2)", conn);
+                command.Parameters.AddWithValue("p0", Id);
+                command.Parameters.AddWithValue("p1", bluRay?.Id);
+                command.Parameters.AddWithValue("p2", idRealisateur);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Link created !");
+                }
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+
         public void LinkBluRayActeurs(BluRay bluRay, List<long> idsActeurs)
         {
             NpgsqlConnection conn = null;
@@ -272,7 +306,6 @@ namespace MyLittleBluRayThequeProject.Repositories
                 // Connect to a PostgreSQL database
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
-
                 // Define a query returning a single row result set
                 NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" FROM \"BluRayTheque\".\"BluRay\" where \"Id\" = @p", conn);
                 command.Parameters.AddWithValue("p", Id);

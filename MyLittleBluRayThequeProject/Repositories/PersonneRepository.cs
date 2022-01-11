@@ -55,7 +55,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"p\".\"Id\", \"p\".\"Nom\", \"p\".\"Prenom\", \"p\".\"DateNaissance\", \"p\".\"Nationalite\" FROM \"BluRayTheque\".\"Personne\" AS p ", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"p\".\"Id\", \"p\".\"Nom\", \"p\".\"Prenom\", \"p\".\"DateNaissance\", \"p\".\"Nationalite\" FROM \"BluRayTheque\".\"Personne\" AS p JOIN \"BluRayTheque\".\"Acteur\" AS a ON \"a\".\"IdActeur\" = \"p\".\"Id\"", conn);
 
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -64,11 +64,11 @@ namespace MyLittleBluRayThequeProject.Repositories
                 while (dr.Read())
                     result.Add(new Personne
                     {
-                        Id = long.Parse(dr["Id"].ToString()),
-                        Nom = dr["Nom"].ToString(),
-                        Prenom = dr["Prenom"].ToString(),
-                        DateNaissance = DateTime.Parse(dr["DateNaissance"].ToString()),
-                        Nationalite = dr["Nationalite"].ToString()
+                        Id = long.Parse(dr[0].ToString()),
+                        Nom = dr[1].ToString(),
+                        Prenom = dr[2].ToString(),
+                        DateNaissance = DateTime.Parse(dr[3].ToString()),
+                        Nationalite = dr[5].ToString()
                     });
             }
             finally

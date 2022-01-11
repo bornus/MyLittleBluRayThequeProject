@@ -18,10 +18,27 @@ namespace MyLittleBluRayThequeProject.Business
         public IEnumerable<BluRay> GetBluRays()
         {
             return bluRayRepository.GetListeBluRaySQL();
-
         }
 
-        public BluRay GetBluRayById(long idBr)
+        public BluRay EmprunterBluRay(long idBr)
+        {
+            BluRay br = this.GetBluRay(idBr);
+            if (br.Disponible)
+            {
+                bool success = bluRayRepository.EmpruntBluRay(idBr);
+                if (!success)
+                {
+                    throw new ArgumentException($"L'emprunt a échoué pour le bluray d'id :{idBr}");
+                }
+                else
+                {
+                    return br;
+                }
+            }
+            return null;
+        }
+
+        public BluRay GetBluRay(long idBr)
         {
             BluRay bluRay = bluRayRepository.GetBluRay(idBr);
 
@@ -29,11 +46,6 @@ namespace MyLittleBluRayThequeProject.Business
             {
                 throw new ArgumentException($"Bluray d'id :{idBr} non trouvé");
             }
-
-            //bluRay.Realisateur = personneRepository.GetRealisateurBr(idBr);
-
-            //bluRay.Acteurs = personneRepository.GetActeursBr(idBr);
-
             return bluRay;
         }
 
@@ -60,12 +72,17 @@ namespace MyLittleBluRayThequeProject.Business
             }
             return langues;
         }
+      
+        public List<(long, string)> GetSsTitre()
+        {
+            List<(long, string)> ssTitres = bluRayRepository.GetListSsTitre();
 
-            //bluRay.Realisateur = personneRepository.GetRealisateurBr(idBr);
-
-            //bluRay.Acteurs = personneRepository.GetActeursBr(idBr);
-
-            return bluRay;
+            if (ssTitres == null)
+            {
+                throw new ArgumentException("Liste des sous titre non trouvé");
+            }
+            return ssTitres;
+        }
         }
     }
 }

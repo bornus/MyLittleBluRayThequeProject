@@ -340,11 +340,10 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
         }
 
-        private long GetLastIdOfTable(string table)
+        public bool EmpruntBluRay(long idBr)
         {
+            bool success = false;
             NpgsqlConnection conn = null;
-            List<long> result = new List<long>();
-            result.Add(0);
             try
             {
                 // Connect to a PostgreSQL database
@@ -352,15 +351,14 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\" FROM \"BluRayTheque\".\"" + table + "\"", conn);
+                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET disponible = 'false' WHERE Id = @p0", conn);
+                command.Parameters.AddWithValue("p0", idBr);
 
-                // Execute the query and obtain a result set
-                NpgsqlDataReader dr = command.ExecuteReader();
+                var dr = command.ExecuteNonQuery();
 
-                // Output rows
-                while (dr.Read())
+                if (dr > 0)
                 {
-                    result.Add((int) dr[0]);
+                    success = true;
                 }
 
             }
@@ -371,11 +369,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                     conn.Close();
                 }
             }
-            return result.Last();
-
+            return success;
         }
-
-
-
     }
 }

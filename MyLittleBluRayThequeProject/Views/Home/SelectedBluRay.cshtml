@@ -18,8 +18,9 @@
     <div>
         <h4>Acteurs :</h4> @foreach (var act in Model.SelectedBluRay.Acteurs)
         {
-            <div>nom :  @act.Nom</div>
-            <div>prenom :  @act.Prenom</div>
+            <div>
+            @act.Nom @act.Prenom
+            </div>
         }
     </div>
     <div>

@@ -43,7 +43,7 @@ namespace MyLittleBluRayThequeProject.Repositories
         }
 
 
-        public List<Personne> GetListActeurs()
+        public List<Personne> GetListActeursOfBluRay(long idBr)
         {
             NpgsqlConnection conn = null;
             List<Personne> result = new List<Personne>();
@@ -54,7 +54,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"p\".\"Id\", \"p\".\"Nom\", \"p\".\"Prenom\", \"p\".\"DateNaissance\", \"p\".\"Nationalite\" FROM \"BluRayTheque\".\"Personne\" AS p JOIN \"BluRayTheque\".\"Acteur\" AS a ON \"a\".\"IdActeur\" = \"p\".\"Id\"", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"p\".\"Id\", \"p\".\"Nom\", \"p\".\"Prenom\", \"p\".\"DateNaissance\", \"p\".\"Nationalite\" FROM \"BluRayTheque\".\"Personne\" AS p JOIN \"BluRayTheque\".\"Acteur\" AS a ON \"a\".\"IdActeur\" = \"p\".\"Id\" JOIN \"BluRayTheque\".\"BluRay\" AS b ON \"a\".\"IdBluRay\" = \"b\".\"Id\" ", conn);
 
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();

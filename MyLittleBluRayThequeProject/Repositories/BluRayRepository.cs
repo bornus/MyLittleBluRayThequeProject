@@ -12,7 +12,7 @@ namespace MyLittleBluRayThequeProject.Repositories
         {
 
         }
-
+        PersonneRepository personneRepository = new PersonneRepository();
         public IEnumerable<BluRay> GetListeBluRaySQL()
         {
             NpgsqlConnection conn = null;
@@ -34,7 +34,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 {
                     if (dr != null && dr[2].ToString() != null)
                     {
-                        result.Add(new BluRay
+                        BluRay br = new BluRay
                         {
                             Id = long.Parse(dr[0].ToString()),
                             Titre = dr[1].ToString(),
@@ -44,18 +44,16 @@ namespace MyLittleBluRayThequeProject.Repositories
                             Emprunt = dr[5].ToString().Equals("") ? false : bool.Parse(dr[5].ToString()),
                             Proprietaire = dr[6].ToString().Equals("") ? 0 : int.Parse(dr[6].ToString()),
                             Disponible = dr[7].ToString().Equals("") ? false : bool.Parse(dr[7].ToString()),
-                        });
+                        };
+                        br.Acteurs = personneRepository.GetListActeursOfBluRay(br.Id);
+                        br.Realisateur = personneRepository.GetListRealisateurOfBluRay(br.Id);
+                        br.Scenariste = personneRepository.GetListScenaristeOfBluRay(br.Id);
+
+                        result.Add(br);
+
                     }
 
                 }
-                /*
-                 * DateSortie = DateTime.FromFileTime(long.Parse(dr[3] == null ? null : dr[3].ToString())),
-                        Duree = new TimeSpan(long.Parse(dr[2]?.ToString())),
-                        DateSortie = DateTime.FromFileTime(long.Parse(dr[3].ToString())),
-                        Version = dr[4].ToString(),
-                        Emprunt = bool.Parse(dr[5].ToString()),
-                        Proprietaire = int.Parse(dr[6].ToString()),
-                        Disponible = bool.Parse(dr[7].ToString()),*/
 
             }
             finally

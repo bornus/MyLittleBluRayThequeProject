@@ -94,7 +94,7 @@ namespace MyLittleBluRayThequeProject.Business
             return ssTitres;
         }
 
-        public void CreerBluRay(BluRay bluRay, long idRealisateur, long idScenariste, List<long> idsActeurs, List<(long, string)> ssTitres, List<(long, string)> langues)
+        public void CreerBluRay(BluRay bluRay, long idRealisateur, long idScenariste, List<long> idsActeurs, List<long> ssTitres, List<long> langues)
         {
             bluRayRepository.PostBluRay(bluRay);
             bluRayRepository.LinkBluRayRealisateur(idRealisateur);

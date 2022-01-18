@@ -17,9 +17,9 @@ namespace MyLittleBluRayThequeProject.Models
 
         public DateTime dateSortie { get; set; }
 
-        public List<(long, string)> langues { get; set; }
+        public List<long> langues { get; set; }
 
-        public List<(long, string)> ssTitres { get; set; }
+        public List<long> ssTitres { get; set; }
 
         public string Version { get; set; }
 

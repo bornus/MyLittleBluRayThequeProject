@@ -46,8 +46,8 @@ namespace MyLittleBluRayThequeProject.Repositories
                             Disponible = dr[7].ToString().Equals("") ? false : bool.Parse(dr[7].ToString()),
                         };
                         br.Acteurs = personneRepository.GetListActeursOfBluRay(br.Id);
-                        br.Realisateur = personneRepository.GetListRealisateurOfBluRay(br.Id);
-                        br.Scenariste = personneRepository.GetListScenaristeOfBluRay(br.Id);
+                        br.Realisateur = personneRepository.GetRealisateurOfBluRay(br.Id);
+                        br.Scenariste = personneRepository.GetScenaristeOfBluRay(br.Id);
 
                         result.Add(br);
 

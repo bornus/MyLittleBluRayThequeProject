@@ -19,9 +19,21 @@
         public string Version { get; set; }
 
         /// <summary>
+        /// Durée du film
+        /// </summary>
+        public TimeSpan Duree { get; set; }
+
+        /// <summary>
+        /// Date de sortie du film
+        /// </summary>
+        public DateTime? DateSortie { get; set; }
+
+        /// <summary>
         /// Le flag de la disponibilité du BluRay
         /// </summary>
         public bool Disponible { get; set; }
+
+        public int? Proprietaire { get; set; }
 
         /// <summary>
         /// Le flag de l'url d'où vient le bluray

@@ -16,10 +16,10 @@ namespace MyLittleBluRayThequeProject.Business
         public List<BluRayApi> GetBluRays()
         {
             List<BluRayApi> bluRayApis = new List<BluRayApi>();
-            List<string> urls = bluRayApiRepository.getUrls();
-            foreach (string url in urls)
+            List<SourceEmprunt> urls = bluRayApiRepository.getEmprunts();
+            foreach (SourceEmprunt emprunt in urls)
             {
-                bluRayApis.AddRange(bluRayApiRepository.GetBluRays(url));
+                bluRayApis.AddRange(bluRayApiRepository.GetBluRays(emprunt.Url));
             }
             if(bluRayApis.Count == 0)
             {
@@ -29,11 +29,13 @@ namespace MyLittleBluRayThequeProject.Business
 
         }
 
-        public BluRayApi EmprunterBluRay(BluRayApi brApi)
+        public BluRayApi EmprunterBluRay(long brId)
         {
-            if (brApi.FromUrl != null)
+            //TODO lié avec sourceEmprunt dans la bdd
+            List<SourceEmprunt> emprunts = bluRayApiRepository.getEmprunts();
+            if (brId != null)
             {
-                bluRayApiRepository.EmprunterBluRay(brApi, brApi.FromUrl);
+                bluRayApiRepository.EmprunterBluRay(brId, emprunts.First());
             }
             return null;
         }

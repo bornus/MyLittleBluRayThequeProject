@@ -94,14 +94,14 @@ namespace MyLittleBluRayThequeProject.Business
             return ssTitres;
         }
 
-        public void CreerBluRay(BluRay bluRay, long idRealisateur, long idScenariste, List<long> idsActeurs, List<string> ssTitres, List<string> langues)
+        public void CreerBluRay(BluRay bluRay, long idRealisateur, long idScenariste, List<long> idsActeurs, List<(long, string)> ssTitres, List<(long, string)> langues)
         {
             bluRayRepository.PostBluRay(bluRay);
-            bluRayRepository.LinkBluRayRealisateur(bluRay, idRealisateur);
-            bluRayRepository.LinkBluRayScenariste(bluRay, idScenariste);
-            bluRayRepository.LinkBluRayActeurs(bluRay, idsActeurs);
-            bluRayRepository.LinkBluRaySsTitres(bluRay, ssTitres);
-            bluRayRepository.LinkBluRayLangues(bluRay, langues);
+            bluRayRepository.LinkBluRayRealisateur(idRealisateur);
+            bluRayRepository.LinkBluRayScenariste(idScenariste);
+            bluRayRepository.LinkBluRayActeurs(idsActeurs);
+            bluRayRepository.LinkBluRaySsTitres(ssTitres);
+            bluRayRepository.LinkBluRayLangues(langues);
 
         }
     }

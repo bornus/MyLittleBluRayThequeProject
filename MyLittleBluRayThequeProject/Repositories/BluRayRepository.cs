@@ -48,6 +48,8 @@ namespace MyLittleBluRayThequeProject.Repositories
                         br.Acteurs = personneRepository.GetListActeursOfBluRay(br.Id);
                         br.Realisateur = personneRepository.GetRealisateurOfBluRay(br.Id);
                         br.Scenariste = personneRepository.GetScenaristeOfBluRay(br.Id);
+                        br.Langues = personneRepository.getListLanguesOfBluray(br.Id);
+                        br.SsTitres = personneRepository.getListSsTitresOfBluray(br.Id);
 
                         result.Add(br);
 
@@ -74,10 +76,10 @@ namespace MyLittleBluRayThequeProject.Repositories
                 // Connect to a PostgreSQL database
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
-
+                var id = GetLastIdOfTable("BluRay") + 1;
                 // Define a query returning a single row result set
                 NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"BluRay\" VALUES(@p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7)", conn);
-                command.Parameters.AddWithValue("p0", bluRay.Id);
+                command.Parameters.AddWithValue("p0", id);
                 command.Parameters.AddWithValue("p1", bluRay?.Titre);
                 command.Parameters.AddWithValue("p2", bluRay?.Duree.TotalMinutes);
                 command.Parameters.AddWithValue("p3", bluRay?.DateSortie);
@@ -102,7 +104,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
         }
 
-        public void LinkBluRayRealisateur(BluRay bluRay, long idReal)
+        public void LinkBluRayRealisateur(long idReal)
         {
             NpgsqlConnection conn = null;
             try
@@ -111,11 +113,12 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
-                long Id = this.GetLastIdOfTable("Realisateur") + 1;
+                long Id = GetLastIdOfTable("Realisateur") + 1;
+                long Idbr = GetLastIdOfTable("BluRay");
 
                 NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"Realisateur\" VALUES(@p0,@p1,@p2)", conn);
                 command.Parameters.AddWithValue("p0", Id);
-                command.Parameters.AddWithValue("p1", bluRay?.Id);
+                command.Parameters.AddWithValue("p1", Idbr);
                 command.Parameters.AddWithValue("p2", idReal);
 
                 var dr = command.ExecuteNonQuery();
@@ -134,7 +137,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
         }
 
-        public void LinkBluRayScenariste(BluRay bluRay, long idScenar)
+        public void LinkBluRayScenariste(long idScenar)
         {
             NpgsqlConnection conn = null;
             try
@@ -144,10 +147,11 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 long Id = this.GetLastIdOfTable("Scenariste") + 1;
+                long Idbr = GetLastIdOfTable("BluRay");
 
                 NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"Scenariste\" VALUES(@p0,@p1,@p2)", conn);
                 command.Parameters.AddWithValue("p0", Id);
-                command.Parameters.AddWithValue("p1", bluRay?.Id);
+                command.Parameters.AddWithValue("p1", Idbr);
                 command.Parameters.AddWithValue("p2", idScenar);
 
                 var dr = command.ExecuteNonQuery();
@@ -166,7 +170,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
         }
 
-        public void LinkBluRayActeurs(BluRay bluRay, List<long> ids)
+        public void LinkBluRayActeurs(List<long> ids)
         {
             NpgsqlConnection conn = null;
             try
@@ -177,11 +181,12 @@ namespace MyLittleBluRayThequeProject.Repositories
 
                 foreach (long idActeur in ids)
                 {
-                    long Id = this.GetLastIdOfTable("Scenariste") + 1;
+                    long Id = this.GetLastIdOfTable("Acteur") + 1;
+                    long Idbr = GetLastIdOfTable("BluRay");
 
                     NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"Acteur\" VALUES(@p0,@p1,@p2)", conn);
                     command.Parameters.AddWithValue("p0", Id);
-                    command.Parameters.AddWithValue("p1", bluRay?.Id);
+                    command.Parameters.AddWithValue("p1", Idbr);
                     command.Parameters.AddWithValue("p2", idActeur);
 
                     var dr = command.ExecuteNonQuery();
@@ -201,23 +206,31 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
         }
 
-        public void LinkBluRayLangues(BluRay bluRay, List<string> ids)
+        public void LinkBluRayLangues(List<(long, string)> ids)
         {
             NpgsqlConnection conn = null;
+
             try
             {
                 // Connect to a PostgreSQL database
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
-                foreach(string idLangue in ids)
+                foreach ((long, string) idLangue in ids)
                 {
-                    long Id = this.GetLastIdOfTable("BluRayLangue") + 1;
+                    Console.WriteLine("foreach");
+
+                    long Id = GetLastIdOfTable("BluRayLangue") + 1;
+                    long Idbr = GetLastIdOfTable("BluRay");
+                    long idl = idLangue.Item1;
+                    Console.WriteLine(idLangue);
+
+                    Console.WriteLine(idl);
 
                     NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"BluRayLangue\" VALUES(@p0,@p1,@p2)", conn);
                     command.Parameters.AddWithValue("p0", Id);
-                    command.Parameters.AddWithValue("p1", bluRay?.Id);
-                    command.Parameters.AddWithValue("p2", idLangue);
+                    command.Parameters.AddWithValue("p1", Idbr);
+                    command.Parameters.AddWithValue("p2", idl);
 
                     var dr = command.ExecuteNonQuery();
 
@@ -238,7 +251,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
         }
 
-        public void LinkBluRaySsTitres(BluRay bluRay, List<string> ids)
+        public void LinkBluRaySsTitres(List<(long, string)> ids)
         {
             NpgsqlConnection conn = null;
             try
@@ -247,15 +260,15 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
-
-                foreach (string idssTitre in ids)
+                foreach ((long, string) idssTitre in ids)
                 {
-                    long Id = this.GetLastIdOfTable("BluRaySsTitre") + 1;
-
+                    long Id = GetLastIdOfTable("BluRaySsTitre") + 1;
+                    long Idbr = GetLastIdOfTable("BluRay");
+                    long idst = idssTitre.Item1;
                     NpgsqlCommand command = new NpgsqlCommand("INSERT INTO \"BluRayTheque\".\"BluRaySsTitre\" VALUES(@p0,@p1,@p2)", conn);
                     command.Parameters.AddWithValue("p0", Id);
-                    command.Parameters.AddWithValue("p1", bluRay?.Id);
-                    command.Parameters.AddWithValue("p2", idssTitre);
+                    command.Parameters.AddWithValue("p1", Idbr);
+                    command.Parameters.AddWithValue("p2", idst);
 
                     var dr = command.ExecuteNonQuery();
 
@@ -411,6 +424,10 @@ namespace MyLittleBluRayThequeProject.Repositories
                 {
                     conn.Close();
                 }
+            }
+            if(result.Count() == 0)
+            {
+                result.Add(0);
             }
             return result.Last();
 

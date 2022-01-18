@@ -44,15 +44,15 @@
 
         <label for="langues">Langues :</label>
         <select name="langues" id="langues" multiple>
-           @foreach (var langue in Model.listLangues ?? new List<string>()){
-                <option value="@langue">@langue</option>
+           @foreach (var langue in Model.listLangues ?? new List<(long, string)>()){
+                <option value="@langue">@langue.Item2</option>
            }
         </select><br />
 
         <label for="ssTitre">Sous titres :</label>
         <select name="ssTitres" id="ssTitres" multiple >
-           @foreach (var ssTitre in Model.listSsTitre ?? new List<string>()){
-                <option value="@ssTitre">@ssTitre</option>
+           @foreach (var ssTitre in Model.listSsTitre ?? new List<(long, string)>()){
+                <option value="@ssTitre">@ssTitre.Item2</option>
             }
         </select> <br />
 

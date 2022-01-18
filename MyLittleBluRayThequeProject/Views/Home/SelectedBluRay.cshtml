@@ -10,10 +10,10 @@
     titre : @Model.SelectedBluRay.Titre
     </div>
     <div>
-    Scenariste : @Model.SelectedBluRay.Scenariste
+    Scenariste : @Model.SelectedBluRay.Scenariste.Nom @Model.SelectedBluRay.Scenariste.Prenom
     </div>
     <div>
-    Realisateur : @Model.SelectedBluRay.Realisateur
+    Realisateur : @Model.SelectedBluRay.Realisateur.Nom @Model.SelectedBluRay.Realisateur.Prenom
     </div>
     <div>
         Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs)

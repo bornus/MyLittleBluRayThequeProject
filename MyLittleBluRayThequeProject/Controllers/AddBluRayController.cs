@@ -36,6 +36,14 @@ namespace MyLittleBluRayThequeProject.Controllers
             var ssTitre = body.ssTitres;
             var version = body.Version;
 
+            BluRay br = new BluRay();
+            br.Titre = titre;
+            br.Duree = duree;
+            br.DateSortie = dateSortie;
+            br.Version = version;
+
+            brBu.CreerBluRay(br, realisateur, scenariste, acteurs, ssTitre, langues);
+
             AddBluRayViewModel model = new AddBluRayViewModel();
             var list = prBu.GetListePersonne();
             var list2 = brBu.GetLangues();

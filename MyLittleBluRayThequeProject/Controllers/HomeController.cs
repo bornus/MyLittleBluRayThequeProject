@@ -12,7 +12,6 @@ namespace MyLittleBluRayThequeProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly BluRayRepository brRepository;
         private readonly BluRayBusiness brBusiness;
 
         public HomeController(ILogger<HomeController> logger)
@@ -46,6 +45,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         public IActionResult Index(long id)
         {
             //Supprimer un bluray
+            brBusiness.DeleteBluRay(id);
 
             IndexViewModel model = new IndexViewModel();
             model.BluRays = brBusiness.GetBlurays().ToList();
@@ -63,5 +63,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }

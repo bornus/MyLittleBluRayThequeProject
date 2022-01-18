@@ -491,5 +491,173 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
             return success;
         }
+
+        public void DeleteBluRay(long id)
+        {
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRay\" AS br WHERE \"br\".\"Id\" = " + id, conn);
+    
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Object deleted !");
+                }
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public void DeleteBluRaySsTitres(long id)
+        {
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRaySsTitre\" AS brss WHERE \"brss\".\"IdBluRay\" = " + id, conn);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Object deleted !");
+                }
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public void DeleteBluRayLangues(long id)
+        {
+
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRayLangue\" AS brl WHERE \"brl\".\"IdBluRay\" = " + id, conn);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Object deleted !");
+                }
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+        }
+        public void DeleteBluRayRealisateur(long id)
+        {
+
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"Realisateur\" AS real WHERE \"real\".\"IdBluRay\" = " + id, conn);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Object deleted !");
+                }
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+
+        }
+        public void DeleteBlurayScenariste(long id)
+        {
+
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"Scenariste\" AS scenar WHERE \"scenar\".\"IdBluRay\" = " + id, conn);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Object deleted !");
+                }
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+
+        }
+        public void DeleteBlurayActeurs(long id)
+        {
+
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"Acteur\" AS acteur WHERE \"acteur\".\"IdBluRay\" = " + id, conn);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    Console.WriteLine("Object deleted !");
+                }
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+        }
+
     }
 }

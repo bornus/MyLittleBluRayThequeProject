@@ -104,5 +104,19 @@ namespace MyLittleBluRayThequeProject.Business
             bluRayRepository.LinkBluRayLangues(langues);
 
         }
+
+        public void DeleteBluRay(long id)
+        {
+            Console.WriteLine("delete" + id);
+            bluRayRepository.DeleteBluRaySsTitres(id);
+            bluRayRepository.DeleteBluRayLangues(id);
+            bluRayRepository.DeleteBluRayRealisateur(id);
+            bluRayRepository.DeleteBlurayScenariste(id);
+            bluRayRepository.DeleteBlurayActeurs(id);
+            bluRayRepository.DeleteBluRay(id);
+        }
+
+
+       
     }
 }

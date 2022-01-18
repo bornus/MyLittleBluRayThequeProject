@@ -7,41 +7,41 @@
 }
 <div class="text-center">
     <div>
-    titre : @Model.SelectedBluRay.Titre
+    <h4>Titre : </h4> @Model.SelectedBluRay.Titre
     </div>
     <div>
-    Scenariste : @Model.SelectedBluRay.Scenariste.Nom @Model.SelectedBluRay.Scenariste.Prenom
+    <h4>Scénariste : </h4> @Model.SelectedBluRay.Scenariste.Nom @Model.SelectedBluRay.Scenariste.Prenom
     </div>
     <div>
-    Realisateur : @Model.SelectedBluRay.Realisateur.Nom @Model.SelectedBluRay.Realisateur.Prenom
+    <h4>Réalistateur : </h4> @Model.SelectedBluRay.Realisateur.Nom @Model.SelectedBluRay.Realisateur.Prenom
     </div>
     <div>
-        Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs)
+        <h4>Acteurs :</h4> @foreach (var act in Model.SelectedBluRay.Acteurs)
         {
             <div>nom :  @act.Nom</div>
             <div>prenom :  @act.Prenom</div>
         }
     </div>
     <div>
-    Duree : @Model.SelectedBluRay.Duree.ToString()
+    <h4>Duree :</h4> @Model.SelectedBluRay.Duree.ToString()
     </div>
     <div>
-    Date de sortie : @Model.SelectedBluRay.DateSortie?.ToShortDateString()
+    <h4>Date de sortie :</h4> @Model.SelectedBluRay.DateSortie?.ToShortDateString()
     </div>
     <div>
-        Langues : @foreach (var lg in Model.SelectedBluRay.Langues)
+        <h4>Langues : </h4>@foreach (var lg in Model.SelectedBluRay.Langues)
         {
             <div>@lg</div>
         }
     </div>
     <div>
-        Sous Titre : @foreach (var st in Model.SelectedBluRay.SsTitres)
+        <h4>Sous Titre : </h4>@foreach (var st in Model.SelectedBluRay.SsTitres)
         {
             <div>@st</div>
         }
     </div>
     <div>
-    Version : @Model.SelectedBluRay.Version
+    <h4>Version : </h4>@Model.SelectedBluRay.Version
     </div>
 
     <div>

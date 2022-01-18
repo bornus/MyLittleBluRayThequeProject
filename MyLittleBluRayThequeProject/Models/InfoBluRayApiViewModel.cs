@@ -27,5 +27,14 @@ namespace MyLittleBluRayThequeProject.Models
             }
             return new InfoBluRayApiViewModel { Id = dto.Id, Titre = dto.Titre, Version = dto.Version };
         }
+
+        public static InfoBluRayApiViewModel ToModel(BluRayApi dto)
+        {
+            if (dto == null)
+            {
+                return null;
+            }
+            return new InfoBluRayApiViewModel { Id = dto.Id, Titre = dto.Titre, Version = dto.Version };
+        }
     }
 }

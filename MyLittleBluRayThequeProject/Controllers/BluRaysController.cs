@@ -43,6 +43,18 @@ namespace MyLittleBluRayThequeProject.Controllers
                 }
                 return new NotFoundObjectResult(route.IdBluray);
             }
+
+            [HttpPost("{IdBluray}/Rendu")]
+            public ObjectResult RendreBluRay([FromRoute] IdBluRayRoute route)
+            {
+                BluRay br = brManager.RendreBluRay(route.IdBluray);
+                if (br != null)
+                {
+                    return new CreatedResult($"{route.IdBluray}", br);
+
+                }
+                return new NotFoundObjectResult(route.IdBluray);
+            }
         }
     }
 }

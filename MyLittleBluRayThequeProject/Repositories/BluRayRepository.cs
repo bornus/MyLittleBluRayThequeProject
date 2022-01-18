@@ -178,7 +178,7 @@ namespace MyLittleBluRayThequeProject.Repositories
         public BluRay GetBluRay(long Id)
         {
             NpgsqlConnection conn = null;
-            BluRay result = new BluRay();
+            BluRay result = null;
             try
             {
                 List<BluRay> qryResult = new List<BluRay>();
@@ -289,6 +289,38 @@ namespace MyLittleBluRayThequeProject.Repositories
 
                 // Define a query returning a single row result set
                 NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET disponible = 'false' WHERE Id = @p0", conn);
+                command.Parameters.AddWithValue("p0", idBr);
+
+                var dr = command.ExecuteNonQuery();
+
+                if (dr > 0)
+                {
+                    success = true;
+                }
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return success;
+        }
+
+        public bool RendBluRay(long idBr)
+        {
+            bool success = false;
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET disponible = 'true' WHERE Id = @p0", conn);
                 command.Parameters.AddWithValue("p0", idBr);
 
                 var dr = command.ExecuteNonQuery();

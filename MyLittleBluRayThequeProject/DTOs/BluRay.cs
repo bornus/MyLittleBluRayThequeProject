@@ -57,6 +57,8 @@
 
         public bool Emprunt { get; set; }
 
+        public int? IdExterne { get; set; }
+
         public bool Disponible { get; set; }
         public int Proprietaire { get; set; }
     }

@@ -23,8 +23,8 @@ namespace MyLittleBluRayThequeProject.Models
 
         public List<Personne> listScenar { get; set; }
 
-        public List<string> listLangues { get; set; }
+        public List<(long,string)> listLangues { get; set; }
 
-        public List<string> listSsTitre { get; set; }
+        public List<(long, string)> listSsTitre { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLittleBluRayThequeProject.Business;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyLittleBluRayThequeProject.DTOs;
 using MyLittleBluRayThequeProject.Models;
 using MyLittleBluRayThequeProject.Repositories;
@@ -24,7 +25,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         {
             IndexViewModel model = new IndexViewModel();
             
-            model.BluRays = brBusiness.GetBluRays().ToList();
+            model.BluRays = brBusiness.GetBlurays().ToList();
             foreach(BluRay bray in model.BluRays)
             {
                 //brRepository.PostBluRay(bray);
@@ -35,7 +36,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         public IActionResult SelectedBluRay(long id)
         {
             IndexViewModel model = new IndexViewModel();
-            model.BluRays = brBusiness.GetBluRays().ToList();
+            model.BluRays = brBusiness.GetBlurays().ToList();
             model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
@@ -47,7 +48,7 @@ namespace MyLittleBluRayThequeProject.Controllers
             //Supprimer un bluray
 
             IndexViewModel model = new IndexViewModel();
-            model.BluRays = brBusiness.GetBluRays().ToList();
+            model.BluRays = brBusiness.GetBlurays().ToList();
             model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
